@@ -65,8 +65,6 @@ $mail->setOauth(
 );
 
 $mail->isHTML();
-$mail->Username = 'petitballetacademy@gmail.com';
-$mail->Password = '*Ballet@22*';
 $mail->setFrom('no-reply@petitballetacademy.com');
 $mail->Subject = $email_subject;
 $mail->Body = $email_body;
