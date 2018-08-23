@@ -1,7 +1,3 @@
-function enroll(class_name) {
-    alert("enrolling in " + class_name);
-}
-
 function main() {
 
 (function () {
@@ -84,3 +80,7 @@ function main() {
 
 }
 main();
+
+function preRegister(class_name) {
+    alert(class_name);
+}
