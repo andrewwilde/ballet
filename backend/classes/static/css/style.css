@@ -111,11 +111,11 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 	text-transform: uppercase;
 	color: #CD99B9;
 	font-weight: 500;
-	font-size: 15px;
+	font-size: 22px;
 	padding: 5px 0;
 	border: 2px solid transparent;
 	letter-spacing: 0.5px;
-	margin: 10px 15px 0 15px;
+	margin: 0px 15px 0 15px;
         font-family: 'Clicker Script', 'Arial';
 }
 #menu.navbar-default .navbar-nav > li > a:hover {
@@ -419,55 +419,59 @@ ol.type li a:hover {
 }
 /* Team Section */
 #team {
-	color: #fff;
-	background: #444 url(../img/team-bg.jpg) center top no-repeat fixed;
+	padding: 0 0 60px 0;
+        background: #f4f3e4;
+}
+#team .section-title {
+	background: #444 url(../img/team-bg.jpg) center center no-repeat fixed;
 	background-size: cover;
 }
-#team .overlay {
-	padding: 120px 0 80px 0;
-	background: rgba(0, 0, 0, 0.6);
-}
-#team h2, #team p {
+#team .section-title h2 {
 	color: #fff;
-}
-#team hr {
-	background: #fff;
-}
-#team h3 {
-	color: #fff;
-	font-weight: 400;
-	font-size: 20px;
-	margin: 5px 0;
 }
 #team img {
-	width: 280px;
+	width: 300px;
+	box-shadow: 15px 0 #a7c44c;
 }
-#team .thumbnail {
-	background: transparent;
-	border: 0;
+#team h3 {
+	padding: 10px 0;
+	text-transform: uppercase;
 }
-#team .thumbnail .team-img {
-	display: inline-block;
-	position: relative;
+#team .menu-section hr {
+	margin: 0 auto;
 }
-#team .thumbnail .team-img:before {
+#team .menu-section {
+	margin: 0 20px 80px;
+}
+#team .menu-section-title {
+	font-size: 26px;
 	display: block;
-	content: '';
-	position: absolute;
-	top: 8px;
-	right: 8px;
-	bottom: 8px;
-	left: 8px;
-	border: 1px solid rgba(255, 255, 255, 0.2);
+	font-weight: 500;
+	color: #444;
+	margin: 20px 0;
+	text-align: center;
 }
-#team .thumbnail .caption {
-	padding-top: 10px;
+#team .menu-item {
+	margin: 35px 0;
+	font-size: 18px;
 }
-#team .thumbnail .caption p {
-	color: rgba(255,255,255,0.7);
-	padding: 0 10px;
+#team .menu-item-name {
+	font-weight: 600;
+	font-size: 17px;
+	color: #555;
+	border-bottom: 2px dotted rgb(213, 213, 213);
+}
+#team .menu-item-description {
+	font-style: italic;
 	font-size: 15px;
 }
+#team .menu-item-price {
+	float: right;
+	font-weight: 600;
+	color: #555;
+	margin-top: -26px;
+}
+
 /* Call Reservation Section */
 #call-reservation {
 	padding: 90px 0;
