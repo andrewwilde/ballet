@@ -291,14 +291,12 @@
               </select>
             </div>
           </div>
-        </form>
-      </div>
-
-      <div class="modal-footer" style="border-top: 0px;">
-        <button type="button" class="btn btn-primary" onclick="preRegister('bb11e7d1-a8f5-4292-8a67-660f1e48de1a');">Pre-Register</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-
+        </div>
+        <div class="modal-footer" style="border-top: 0px;">
+          <button type="button" class="btn btn-primary" onclick="preRegister('pre-ballet');">Pre-Register</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -362,14 +360,12 @@
               </select>
             </div>
           </div>
-        </form>
-      </div>
-
-      <div class="modal-footer" style="border-top: 0px;">
-        <button type="button" class="btn btn-primary" onclick="preRegister('Beginning Ballet');">Pre-Register</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-
+        </div>
+        <div class="modal-footer" style="border-top: 0px;">
+          <button type="button" class="btn btn-primary" onclick="preRegister('beginning');">Pre-Register</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -381,13 +377,10 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"><center>Adult Ballet Pre-Registration</center></h5>
         <center>(Pre-registration gives priority for registration if class fills to capacity)</center>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
 
-      <div class="modal-body">
-        <form>
+      <form>
+        <div class="modal-body">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="parent_first">First Name</label>
@@ -401,21 +394,20 @@
 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for=parent_email">Email</label>
-              <input type="email" class="form-control" id="parent_email">
+              <label for="parent_email">Email</label>
+              <input type="email" class="form-control" id="parent_email" required>
             </div>
             <div class="form-group col-md-6">
-              <label for=parent_email">Phone Number</label>
-              <input type="email" class="form-control" id="parent_email">
+              <label for="parent_phone">Phone Number</label>
+              <input type="tel" class="form-control" id="parent_phone" required>
             </div>
           </div>
-       </form>
-      </div>
-
-      <div class="modal-footer" style="border-top: 0px;">
-        <button type="button" class="btn btn-primary" onclick="preRegister('Adult Ballet')">Pre-Register</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+        </div>
+        <div class="modal-footer" style="border-top: 0px;">
+          <button type="button" class="btn btn-primary" onclick="preRegister('adult');">Pre-Register</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
 
     </div>
   </div>

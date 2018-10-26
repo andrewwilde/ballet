@@ -54,8 +54,11 @@ class Student(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     age = models.IntegerField(null=True)
+    phone_number = models.CharField(max_length=20, null=True)
+    email = models.EmailField(null=True)
     status = models.CharField(max_length=20, choices=STATUS_FIELDS, default='Unregistered')
     parent = models.ForeignKey('Parent', null=True)
+    class_type = models.CharField(max_length=20)
 
     def __repr__(self):
         return self.first_name + " " + self.last_name
@@ -70,6 +73,12 @@ class Parent(models.Model):
     last_name = models.CharField(max_length=30)
     phone_number = models.CharField(max_length=20)
     email = models.EmailField()
+
+    def __repr__(self):
+        return self.first_name + " " + self.last_name
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
 
 
 class Enrollment(models.Model):
