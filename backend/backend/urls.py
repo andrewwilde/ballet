@@ -21,5 +21,6 @@ from django.views.decorators.csrf import csrf_exempt
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'register/preregister', csrf_exempt(registration.pre_register)),
+    url(r'rsvp', csrf_exempt(registration.rsvp)),
     url(r'^$', registration.home, name='home')
 ]

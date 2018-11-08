@@ -431,7 +431,6 @@ ol.type li a:hover {
 }
 #team img {
 	width: 300px;
-	box-shadow: 15px 0 #a7c44c;
 }
 #team h3 {
 	padding: 10px 0;
@@ -504,15 +503,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8eb640', end
 }
 /* Contact Section */
 #contact {
-	padding: 100px 0 60px 0;
-	background: #f0deec;
+        padding: 0 0 60px 0;
+        background: #f4f3e4;
 }
-#contact .section-title p {
-	color: #777;
+#contact .section-title {
+	background: #444 url(../img/shutterstock_770352238.jpg) center center no-repeat fixed;
+        background-size: cover;
 }
 #contact form {
 	padding: 0;
 }
+#contact .section-title h2 {
+        color: #fff;
+}
+
 #contact h3 {
 	text-transform: uppercase;
 	font-size: 20px;

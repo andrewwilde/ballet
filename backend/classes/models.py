@@ -102,3 +102,15 @@ class Assignment(models.Model):
     def __str__(self):
         return self.teacher.first_name + " " + self.teacher.last_name + " teaches " + self.dance_class.title
 
+class Rsvp(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    num_children = models.IntegerField()
+
+    def __repr__(self):
+        return self.first_name + " " + self.last_name
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name

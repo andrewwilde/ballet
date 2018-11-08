@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128368484-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128368484-1');
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Petit Ballet Academy: Payson and Spanish Fork</title>
-<meta name="description" content="Ballet Academy in Payson and Spanish Fork. Pre-ballet, beginning ballet, and adult classes.">
+<title>Petit Ballet Academy: Ballet Studio in Springville, Utah</title>
+<meta name="description" content="Petit Ballet Academy is a quality ballet studio located in Springville, Utah. New ballerinas will be taught the proper fundamentals, whereas experienced ballerinas will continue to build on the skills they have already. Come try out this new ballet studio!">
+<meta name="keywords" content="Springville Ballet,Dance,Class,Spanish Fork,Payson,Quality">
 <meta name="author" content="Andrew Wilde">
 
 <!-- Favicons
@@ -34,7 +46,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" style="background-color:#f0deec;">
 <!-- Navigation
     ==========================================-->
 <nav id="menu" class="navbar navbar-default navbar-fixed-top">
@@ -47,12 +59,12 @@
     </div>-->
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-center">
-        <li><a href="#about" class="page-scroll">Mission</a></li>
-        <li><a href="#restaurant-menu" class="page-scroll">Classes</a></li>
-        <li><a href="#team" class="page-scroll">Staff</a></li>
-        <li><a href="#contact" class="page-scroll">Contact</a></li>
+    <div class="collapse navbar-collapse overlay" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-center" style="border-radius: 25px; background-color: rgba(0, 0, 0, 0.5);" >
+        <li><a href="#about" class="page-scroll" style="color:#f0deec">Mission</a></li>
+        <li><a href="#restaurant-menu" class="page-scroll" style="color:#f0deec">Classes</a></li>
+        <li><a href="#team" class="page-scroll" style="color:#f0deec">Staff</a></li>
+        <li><a href="#footer" class="page-scroll" style="color:#f0deec">Contact</a></li>
       </ul>
     </div>
     <!-- /.navbar-collapse -->
@@ -65,7 +77,9 @@
       <div class="container">
         <div class="row">
           <div class="intro-text">
-            <a href="#restaurant-menu" class="btn btn-custom btn-lg page-scroll">Pre-Register Today</a> </div>
+            <a href="#restaurant-menu" class="btn btn-custom btn-lg page-scroll">Pre-Register Today</a><br/>
+            <a data-toggle="modal" data-target="#freeClassModal" class="btn btn-custom btn-lg">Free Class RSVP</a> 
+          </div>
         </div>
       </div>
     </div>
@@ -75,14 +89,22 @@
 <div id="about">
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-md-6 ">
-        <div class="about-img"><img src="img/about.jpg" class="img-responsive" alt=""></div>
-      </div>
       <div class="col-xs-12 col-md-6">
         <div class="about-text">
-          <h2>Petit Ballet Academy's Mission</h2>
+          <h2>Petit Ballet's Mission</h2>
           <hr>
-          <p>Our dance curriculum establishes an environment that fosters love and enjoyment for dance. It creates a strong foundation in ballet while building on important character qualities the children will use throughout their lives. Ballet should be fun, and this can best be accomplished within a structured and relaxed environment. We are excited to share our enjoyment of ballet with everyone!</p>
+          <p>We are so excited to share our love and passion for dance with everyone. We will strive to create a comfortable environment where students can learn new ballet skills, or grow skills they've already developed. Our wonderful teachers will foster an increased love for ballet using a fun and engaging curriculum. Everyone will feel welcome in a relaxed, structured environment. We value the input of students and parents, and we will do everything possible to promote an amazing experience for our students. Petit Ballet Academy would be honored to have you join us in our program!</p>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 ">
+        <div class="about-text">
+          <h2>Upcoming Events</h2>
+          <hr>
+          <p><b>December 1st, 2018 @ 3:00 PM: </b>Bring your children for a free ballet prince/princess class! Come dressed as your favorite prince or princess and learn a little bit about ballet. Come and see how our class is structured and whether it's a good fit for your child. There is no obligation!  Please RSVP by <a href="#" data-toggle="modal" data-target="#freeClassModal" style="color:blue">clicking on this link.</a></p>
+          <p><b>December 1st, 2018: </b>Class registration is opened. We have a limited amount of spots, so register quickly! Feel free to register online, or call our number at 385-404-8687. You can also contact us through email by <a href="#contact" class="page-scroll" style="color:blue">clicking this link.</a></b></p>
+          <p><b>January 7th, 2019 @ 10:00 AM: </b>First course for the Pre-Ballet students. This class is intended for ages 3-5, and will be every Monday from 10:00 AM - 10:45 AM. For further information on the curriculum, click here.</p>
+          <p><b>January 9th, 2019 @ 8:15 PM: </b>First course for the Adult students. This class is intended for any skill level, and will run every Wednesday from 8:15 PM - 9:30 PM. A drop-in option is available to those who can't come every week. For further information about the curriculum, click here.</p>
+          <p><b>January 11th, 2019 @ 3:45 PM: </b>First course for the Beginning Ballet students. This class is intended for ages 6-10, and will be every Friday from 3:45 PM - 4:45 PM. For further information on the curriculum, click here.</p>
         </div>
       </div>
     </div>
@@ -106,12 +128,12 @@
           <hr>
           <div class="menu-item">
             <div class="menu-item-name">Pre-Ballet</div>
-            <div class="menu-item-price"> $30 </div>
+            <div class="menu-item-price"> $30 per month </div>
             <div class="menu-item-description"> <b>Monday - 10:00 AM to 10:45 AM - Begins 01/07/2019</b> <a data-toggle="modal" data-target="#preBalletModal" style="float:right; cursor:pointer;">Pre-Register Now</a><br> Pre-Ballet for ages 3-5 will introduce ballet technique in a fun simple way through imagination and a hands on approach.  </div>
           </div>
           <div class="menu-item">
             <div class="menu-item-name"> Beginning Ballet </div>
-            <div class="menu-item-price"> $35 </div>
+            <div class="menu-item-price"> $35 per month </div>
             <div class="menu-item-description"> <b>Friday - 3:45 PM to 4:45 PM - Begins 01/11/2019</b> <a data-toggle="modal" data-target="#beginningBalletModal" style="float:right; cursor: pointer;">Pre-Register Now</a><br> Beginning ballet for ages 5-8 will build on ballet technique, encourage good posture, correct positioning, as well as give students an opportunity for creativity in the classroom. </div>
           </div>
         </div>
@@ -122,7 +144,7 @@
           <hr>
           <div class="menu-item">
             <div class="menu-item-name"> Adult Ballet </div>
-            <div class="menu-item-price"> $40 </div>
+            <div class="menu-item-price"> $40 per month </div>
             <div class="menu-item-description"> <b>Wednesday - 8:15 PM to 9:30 PM - Begins 01/09/2019</b> <a data-toggle="modal" data-target="#adultBalletModal" style="float:right; cursor:pointer;">Pre-Register Now</a><br> This class is created for new and advanced ballerinas alike. From the barre to center floor, fun and challenging combinations and variations will help improve any level of dancer. Pointe shoes may be worn but not required. </div>
           </div>
         </div>
@@ -145,20 +167,22 @@
     <div class="row">
       <div class="col-xs-12 col-sm-6">
         <div class="menu-section">
+          <center><img src="/static/img/marybeth.jpg" title="Ballet Director"></center>
           <h2 class="menu-section-title">Marybeth Wilde, Director</h2>
           <hr>
           <div class="menu-item">
-            <div class="menu-item-description">Marybeth has danced for 20 years. She began her career at The Academy of Ballet where she was trained under the direction of Mark Lanham, Stephanie Parker, Carrie Write, Ann Royal and Phyllis Whitaker. In high school she performed the lead role of the Dove from Hansel and Gretel, Princess Florine in the Bluebird Pas de Deux from Sleeping Beauty, The Autumn Fairy from Cinderella, the Scarecrow in The Wizard of Oz, and Clara from the Nutcracker. She then went on to BYU-Idaho to receive her degree as a Registered Nurse. During nursing school she was a member of the Upper Valley Civic Ballet Company in Rexburg, Idaho where she performed in the ballet, Carmen. She has taught and assisted ballet for all ages for 9 years. Along with ballet, Marybeth has been trained in jazz, modern, tap, irish, folk, and contemporary dance. Marybeth Marybeth is married to Andy Wilde and they have two adorable daughters. She currently works at Utah Valley Hospital and she and her family live in Payson, Utah.
+            <div class="menu-item-description">Marybeth has danced for 20 years. She began her career at The Academy of Ballet where she was trained under the direction of Mark Lanham, Stephanie Parker, Carrie Write, Ann Royal and Phyllis Whitaker. In high school, she performed the lead role of the Dove from Hansel and Gretel, Princess Florine in the Bluebird Pas de Deux from Sleeping Beauty, The Autumn Fairy from Cinderella, the Scarecrow in The Wizard of Oz, and Clara from the Nutcracker. She then went on to BYU-Idaho to receive her degree as a Registered Nurse. During nursing school she was a member of the Upper Valley Civic Ballet Company in Rexburg, Idaho where she performed in the ballet, Carmen. She has taught and assisted ballet for all ages for 9 years. Along with ballet, Marybeth has been trained in jazz, modern, tap, irish, folk, and contemporary dance. Marybeth is married to Andy Wilde and they have two adorable daughters. She currently works at Utah Valley Hospital and she and her family live in Payson, Utah.
             </div>
           </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-6">
         <div class="menu-section">
+          <center><img src="/static/img/annie.jpg" title="Ballet Teacher"></center>
           <h2 class="menu-section-title">Ann Kotyk</h2>
           <hr>
           <div class="menu-item">
-            <div class="menu-item-description">Ann started her career at the age of 8 at The Academy of Ballet and has been dancing for a total of 16 years. She was taught under the direction of Carrie Write, Ann Royal and Phyllis Whitaker. She performed as the White Dove from Swan Lake. Ann has taken many forms of dance including jazz, modern, irish, tap, contemporary, and ballroom. She has assisted teaching for 4 years and is looking forward to soon taking on her own students. Ann graduated from Utah Valley University in Sign Laugage Interpreting, where she was a member of the campus dance team Synergy. Ann is married to Zack Kotyk and has an adorable little girl who occasionally makes her way to ballet class with her mom.
+            <div class="menu-item-description">Ann started her career at the age of eight at The Academy of Ballet and has been dancing for a total of 16 years. She was taught under the direction of Carrie Write, Ann Royal and Phyllis Whitaker. She performed as the White Dove from Swan Lake and Princess Florine in the Bluebird Pas de Deux from Sleeping Beauty. Ann has taken many forms of dance including jazz, modern, irish, contemporary, and ballroom. She has assisted teaching for 4 years and is looking forward to soon taking on her own students. Ann graduated from Utah Valley University in Deaf Studies as an American Sign Language Interpreter, where she was also a member of the UVU’s Bronze Ballroom Team. Ann is married to Zack Kotyk and has an adorable little girl who occasionally makes her way to ballet class with her mom. 
             </div>
           </div>
         </div>
@@ -167,15 +191,16 @@
   </div>
 </div>
 
-
 <!-- Contact Section -->
 <div id="contact" class="text-center">
-  <div class="container">
-    <div class="section-title text-center">
+  <div class="section-title text-center center">
+    <div class="overlay">
       <h2>Contact Form</h2>
       <hr>
       <p>Feel free to also send us an email below. We will answer promptly.</p>
     </div>
+  </div>
+  <div class="container">
     <div class="col-md-10 col-md-offset-1">
       <form name="sentMessage" id="contactForm" novalidate>
         <div class="row">
@@ -396,6 +421,61 @@
   </div>
 </div>
 
+<!-- Adult Ballet Modal -->
+<div class="modal fade" id="freeClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><center>RSVP to our Free Class</center></h5>
+        <center>(Free class is on December 1st, 2018 from 2-2:45 PM)</center>
+      </div>
+
+      <form id="adultBalletForm" action="javascript:rsvp();">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="parent_first">Parent First Name</label>
+              <input type="text" class="form-control" id="rsvp_first" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="parent_last">Parent Last  Name</label>
+              <input type="text" class="form-control" id="rsvp_last" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="parent_email">Email</label>
+              <input type="email" class="form-control" id="rsvp_email" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="parent_phone">Phone Number (not required)</label>
+              <input type="tel" class="form-control" id="rsvp_phone">
+            </div>
+          </div>
+        <div class="form-row">
+           <div class="form-group col-md-12">
+              <label for="student_age">Number of Children</label>
+              <select class="form-control" id="rsvp_num">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="border-top: 0px;">
+          <button type="submit" class="btn btn-primary">RSVP Now!</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<h1 style="visibility:hidden; background-color:#f0deec">Springville Ballet Studio</h1>
 
 <script type="text/javascript" src="/static/js/jquery.1.11.1.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap.js"></script>

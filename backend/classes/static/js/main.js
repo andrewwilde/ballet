@@ -95,14 +95,12 @@ function preRegister(class_name, el) {
     parent_last = "";
 
     if (class_name == 'adult'){
-        alert("Adult Registration");
         student_first = $("#adult_first").val();
         student_last = $("#adult_last").val();
         email = $("#adult_email").val();
         phone = $("#adult_phone").val();
     }
     else if (class_name == 'beginning'){
-        alert("Beginning Registration");
         student_first = $("#beginner_first").val();
         student_last = $("#beginner_last").val();
         student_age = $("#beginner_student_age").val();
@@ -112,7 +110,6 @@ function preRegister(class_name, el) {
         parent_last = $("#beginner_parent_last").val();
     }
     else if (class_name == 'pre-ballet'){
-        alert("Pre Ballet Registration");
         student_first = $("#pre_student_first").val();
         student_last = $("#pre_student_last").val();
         student_age = $("#pre_student_age").val();
@@ -134,7 +131,32 @@ function preRegister(class_name, el) {
    $.ajax({
       type: "POST",
       url: url,
-      data: data
+      data: data,
+      success: function() {
+        alert("Thank you for pre-registering!") 
+        $('#adultBalletModal').modal('hide');
+        $('#beginningBalletModal').modal('hide');
+        $('#preBalletModal').modal('hide');
+      }
    });
  
+}
+
+function rsvp(){
+    url = "https://petitballetacademy.com/rsvp";
+    data = { "first_name": $("#rsvp_first").val(),
+             "last_name": $("#rsvp_last").val(),
+             "email": $("#rsvp_email").val(),
+             "phone": $("#rsvp_phone").val(),
+             "num_children": $("#rsvp_num").val() };
+
+    $.ajax({ 
+        type: "POST",
+        url: url,
+        data: data,
+        success: function() {
+          alert("Thank you for RSVPing to our free class. We will be sending out a friendly email reminding you of the event!");
+          $('#freeClassModal').modal('hide');
+        }
+    });
 }

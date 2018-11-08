@@ -8,13 +8,30 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Student, Parent
+from .models import Student, Parent, Rsvp
 
 logger = logging.getLogger('ballet')
 
 @api_view(['GET'])
 def home(request):
     return render(request, 'front/index.html')
+
+@api_view(['POST'])
+def rsvp(request):
+    logger.info("RSVP triggered. request.data=%s" % str(request.data))
+    data = { "first_name": request.data.get("first_name", None),
+             "last_name": request.data.get("last_name", None),
+             "email": request.data.get("email", None),
+             "num_children": request.data.get("num_children", None) }
+
+    if None in data.values():
+        return Response("Not all required fields were filled out.", status=400)
+
+    data['phone'] = request.data.get("phone", "")
+
+    Rsvp.objects.create(**data)
+
+    return Response("RSVP has been successfully created.")
 
 @api_view(['POST'])
 def pre_register(request):
