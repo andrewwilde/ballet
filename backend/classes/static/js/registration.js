@@ -33,7 +33,7 @@ $(document).ready(function(){
       }
     });
 
-
+    var student_id = 0;
     var student_count = 0; //Initial field counter is 1
     var maxField = 4; //Input fields increment limitation
     var addButton = $('#add_button'); //Add button selector
@@ -55,17 +55,17 @@ $(document).ready(function(){
                           '  <div class="form-row">' +
                           '    <div class="form-group col-md-6">' +
                           '      <label for="parent_first">Student\'s Name</label>' +
-                          '      <input type="text" class="form-control" id="student_name" required>' +
+                          '      <input type="text" class="form-control" id="student_name" name="student_name_' + student_id + '"required>' +
                           '    </div>' +
                           '    <div class="form-group col-md-6">' +
                           '      <label for="parent_first">Student\'s Date of Birth</label>' +
-                          '      <input type="text" class="form-control" id="student_birth_date" required>' +
+                          '      <input type="text" class="form-control" id="student_birth_date"  name="student_birth_date_' + student_id + '" required>' +
                           '    </div>' +
                           '   </div>' +
                           '  <div class="form-row">' +
                           '    <div class="form-group col-md-12">' +
                           '      <label for="class_type">Class</label>' +
-                          '      <select class="form-control class_selection" id="class_id">' +
+                          '      <select class="form-control class_selection" id="class_id" name="class_id_' + student_id + '">' +
                           '        <option value="e4dd951e-0699-4dc1-92fc-de96ec37eb88">Pre-Ballet (ages 3-5): Mondays @ 10 - 10:45 AM ($30/month)</option>' +
                           '        <option value="24da8ed9-2866-46b9-a574-e6002fcb920a">Pre-Ballet (ages 3-5): Fridays @ 11:15 AM - 12 PM ($30/month)</option>' +
                           '        <option value="d3ddf124-d95b-4208-a4e9-627e14fb7c0a">Beginning Ballet (ages 6-10): Fridays @ 3:45 - 4:45 PM ($35/month)</option>' +
