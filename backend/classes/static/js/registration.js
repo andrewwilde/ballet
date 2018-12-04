@@ -1,4 +1,39 @@
 $(document).ready(function(){
+    var stripe = Stripe('pk_test_OEiMPBtf9FhQ7ZM6rsjjFwKa');
+    var elements = stripe.elements();
+    var style = {
+      base: {
+        color: '#32325d',
+        lineHeight: '18px',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4'
+        }
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+      }
+    };
+    // Create an instance of the card Element.
+    var card = elements.create('card', {style: style});
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-element');
+
+    // Handle real-time validation errors from the card Element.
+    card.addEventListener('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+
+
     var student_count = 0; //Initial field counter is 1
     var maxField = 4; //Input fields increment limitation
     var addButton = $('#add_button'); //Add button selector
@@ -177,20 +212,48 @@ $(document).ready(function(){
         return reg_data;
     }
 
-    $('#registrationForm').on('submit', function(e){
-        e.preventDefault();
-        if (student_count == 0){
-            alert("Please add at least one student.");
-            return;
+    $('#registrationForm').on('submit', function(e, override=true){
+        if (override) {
+            e.preventDefault();
+            if (student_count == 0){
+                alert("Please add at least one student.");
+                return;
+            }
+            registration_data = get_registration_form_data(); 
+            verified = is_verified(registration_data);
         }
-        registration_data = get_registration_form_data(); 
-        verified = is_verified(registration_data);
-
     });
 
     function submit_payment(data){
         total = parseInt(data['reg_fee'], 10) + parseInt(data['tuition_fee'], 10);
-        createToken();
-        $('#registrationForm').submit();
-    }
+        
+        stripe.createToken(card).then(function(result) {
+          if (result.error) {
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+          } else {
+            // Send the token to your server.
+            stripeTokenHandler(result.token);
+            result = confirm("This will charge " + total + " to your card. Press OK to complete registration.");
+            if (result) {
+                $('#registrationForm').trigger('submit', [false]);
+            }
+          }       
+    });
+  }
+ 
+    // Submit the form with the token ID.
+  function stripeTokenHandler(token) {
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('registrationForm');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+
+      // Let regstration.js perform the submission
+      // form.submit();
+  }
 });
+
