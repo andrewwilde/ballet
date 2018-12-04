@@ -23,6 +23,7 @@ class DanceClass(models.Model):
     day_of_week = models.CharField(max_length=3, choices=DAYS_OF_WEEK, null=True) 
     start_time = models.TimeField(null=True)
     end_time = models.TimeField(null=True)
+    cost = models.IntegerField(default=0)
 
     def __repr__(self):
         return self.title + " on " + str(self.day_of_week) + ' @ ' + str(self.start_time)

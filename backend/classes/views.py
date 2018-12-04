@@ -2,19 +2,25 @@
 from __future__ import unicode_literals
 
 import logging
+import json
 
 from django.shortcuts import render
+from django.conf import settings
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Student, Parent, Rsvp
+from .models import Student, Parent, Rsvp, DanceClass
 
 logger = logging.getLogger('ballet')
 
 @api_view(['GET'])
 def home(request):
     return render(request, 'front/index.html')
+
+@api_view(['GET'])
+def payment(request):
+    return render(request, 'front/payment.html')
 
 @api_view(['POST'])
 def rsvp(request):
@@ -77,3 +83,76 @@ def pre_register(request):
         Student.objects.create(**data)
 
     return Response("Pre-Reigstration Complete")
+
+@api_view(['GET'])
+def tuition_cost(request):
+    class_selections = request.query_params.get("class_selections", None)
+    if not class_selections:
+        return Response("You must select at least one class.")
+
+    classes = class_selections.split(',')
+
+    if len(classes) > 4:
+        logger.error("Someone was able to get around student registration max (more than 4 students).")
+        return Response("Unable to process request.", status=400)
+
+    total = 0;
+    for selection in classes:
+        try:
+            total = total + DanceClass.objects.get(id=selection).cost
+        except Exception as e:
+            logger.error("WARNING: There was an issue getting the tuition cost. Failed on value %s. exception=%s" % ( str(selection), str(e)) )
+            return Response("There was a problem getting the tuition total.", status=400)
+
+    return Response(total)
+       
+@api_view(['POST'])
+def verify_reg_data(request):
+    logger.info("Verifying the following request: %s" % str(request.data))
+    students = request.data.get('students', None)
+    registration_fee = request.data.get('reg_fee', None)
+    tuition_fee = request.data.get('tuition_fee', None)
+
+    #Do we have all the required parent variables?
+    if not (students and registration_fee and tuition_fee):
+        logger.error( "One of the required POST variables was not provided. students=%s, reg_fee=%s, tuition_fee=%s." % ( str(students), str(registration_fee), str(tuition_fee) ) )
+        return Response(False)
+    else:
+        students = json.loads(students)
+
+    #Is the registration fee correct?
+    if len(students) < 1:
+        logger.error( "There must be at least one student. students=%i" % len(students) )
+        return Response(False)
+    elif len(students) == 1 and int(registration_fee) != settings.SINGLE_REG_FEE:
+        logger.error( "Registration fee is incorrect. Expected=%s, Actual=%s" % (settings.SINGLE_REG_FEE, int(registration_fee)) )
+        return Response(False)
+    elif len(students) > 1 and int(registration_fee) != settings.MULTI_REG_FEE:
+        logger.error( "Registration fee is incorrect (multi). Expected=%s, Actual=%s" % (settings.MULTI_REG_FEE, int(registration_fee)) )     
+        return Response(False)
+
+    #Is the tuition total correct?
+    tuition_total = 0
+    for student in students:
+        class_id = student.get('class_id', None)
+        name = student.get('student_name', None)
+        birth_date = student.get('birth_date', None) 
+
+        #Do we have all the correct variables for each student?
+        if not (class_id and name and birth_date):
+            logger.error( "One of the students was not provided with a required variable. student=%s" % str(student) )
+            return Response(False)
+        
+        #Does the class exist?
+        try:
+            dance_class = DanceClass.objects.get(id=student.get('class_id'))
+            tuition_total = tuition_total + dance_class.cost
+        except Exception as e:
+            logger.error( "Unable to get Dance Class from provided class_id. e=%s" % str(e) )
+
+    #Is the tuition total correct?
+    if tuition_total != int(tuition_fee):
+        logger.error( "Tuition total was not as expected. Expected:%i, Actual=%i" % (tuition_total, int(tuition_fee)) )
+        return Response(False)
+
+    return Response(True)

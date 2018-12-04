@@ -23,10 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6me^+l!v2sx6m9*4j*cn^mm^6$#p&64-0js9!=mlog3uyunts5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['petitballetacademy.com']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -38,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'classes'
+    'classes',
+    'charge',
+    'djstripe',
 ]
 
 MIDDLEWARE = [
@@ -124,7 +125,7 @@ LOGGING = {
             'class': 'logging.handlers.ConcurrentRotatingFileHandler',
             'maxBytes': 1024*1024*10,
             'backupCount': 5,
-            'filename': os.path.abspath("/home/andrew/projects/ballet/logs/ballet.log"),
+            'filename': os.path.abspath("/home/andrew/projects/staging/logs/ballet.log"),
             'formatter': 'verbose'
         },
         'console_logger': {
@@ -160,5 +161,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_ROOT='/home/andrew/projects/ballet/static/'
+STATIC_ROOT='/home/andrew/projects/staging/static/'
 STATIC_URL = '/static/'
+
+STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "pk_live_GJgiXAg99RhlmuCXCEfzDueT")
+STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "sk_live_4HXDIbXRsBOjHYyzXkaQtL0o")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_OEiMPBtf9FhQ7ZM6rsjjFwKa")
+STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_8bVQFQ6W4otVVRzTlGXmmTbZ")
+STRIPE_LIVE_MODE = False  # Change to True in production
+
+SINGLE_REG_FEE = 10
+MULTI_REG_FEE = 15

@@ -84,7 +84,7 @@ main();
 
 
 function preRegister(class_name, el) {
-    const url = "https://petitballetacademy.com/register/preregister"
+    const url = "http://localhost:8000/register/preregister"
 
     student_first = "";
     student_last = "";
@@ -143,7 +143,7 @@ function preRegister(class_name, el) {
 }
 
 function rsvp(){
-    url = "https://petitballetacademy.com/rsvp";
+    url = "http://localhost:8000/rsvp";
     data = { "first_name": $("#rsvp_first").val(),
              "last_name": $("#rsvp_last").val(),
              "email": $("#rsvp_email").val(),
