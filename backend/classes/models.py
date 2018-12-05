@@ -58,9 +58,9 @@ class Student(models.Model):
     last_name = models.CharField(max_length=30, null=True)
     age = models.IntegerField(null=True)
     phone_number = models.CharField(max_length=20, null=True)
-    email = models.EmailField(null=True)
+    email = models.EmailField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_FIELDS, default='Unregistered')
-    parent = models.ForeignKey('Parent', null=True)
+    parent = models.ForeignKey('Parent', null=True, blank=True)
     class_type = models.CharField(max_length=20)
     birth_date = models.CharField(max_length=50, null=True)
     medical = models.TextField(null=True)
@@ -136,7 +136,7 @@ class Rsvp(models.Model):
     num_children = models.IntegerField()
 
     def __repr__(self):
-        return self.first_name + " " + self.last_name
+        return "%s %s (%i)" % (self.first_name, self.last_name, self.num_children)
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return "%s %s (%i) - %s" % (self.first_name, self.last_name, self.num_children, self.email)
