@@ -44,6 +44,7 @@ $(document).ready(function(){
 
     $(addButton).click(function(){ 
         //Check maximum number of input fields
+        student_id++;
         if(student_count < maxField){
             var new_student = '<div class="new_student" style="padding: 5px; margin: 5px; border-radius: 25px; float:left; overflow: hidden; background-color:' + bg_color.pop() + ';">' + 
                           '  <div class="form-row">' +
@@ -64,13 +65,19 @@ $(document).ready(function(){
                           '   </div>' +
                           '  <div class="form-row">' +
                           '    <div class="form-group col-md-12">' +
-                          '      <label for="class_type">Class</label>' +
-                          '      <select class="form-control class_selection" id="class_id" name="class_id_' + student_id + '">' +
+                          '      <label for="class_type">Select a Class</label>' +
+                          '      <select class="form-control class_selection" id="class_id" name="student_class_id_' + student_id + '">' +
                           '        <option value="e4dd951e-0699-4dc1-92fc-de96ec37eb88">Pre-Ballet (ages 3-5): Mondays @ 10 - 10:45 AM ($30/month)</option>' +
                           '        <option value="24da8ed9-2866-46b9-a574-e6002fcb920a">Pre-Ballet (ages 3-5): Fridays @ 11:15 AM - 12 PM ($30/month)</option>' +
                           '        <option value="d3ddf124-d95b-4208-a4e9-627e14fb7c0a">Beginning Ballet (ages 6-10): Fridays @ 3:45 - 4:45 PM ($35/month)</option>' +
                           '        <option value="66825a33-86a9-425a-933c-951d24df0159">Adult Ballet (ages 18+): Wednesdays @ 8:15 - 9:30 PM ($40/month)</option>' +
                           '      </select>' +
+                          '    </div>' +
+                          '  </div>' +
+                          '  <div class="form-row">' +
+                          '    <div class="form-group col-md-12">' +
+                          '      <label for=medical_id">Medical Concerns/Allergies</label>' +
+                          '      <input type="text" class="form-control" id="medical_id" name="student_medical_id_' + student_id + '">' +
                           '    </div>' +
                           '  </div>' +
                           '</div>';
@@ -83,10 +90,17 @@ $(document).ready(function(){
             alert("The maximum number of students you can register online is four. Please call 385-404-8687 to register.");
         }
     });
-    
+
+    //Let's start with at least one student   
+    $(addButton).trigger("click");
+ 
     //Once remove button is clicked
     $(wrapper).on('click', '.remove_button', function(e){
         e.preventDefault();
+        if (student_count == 1){
+            alert("Must have at least one student.");
+            return;
+        }
         head_parent = $(this).parent('div').parent('div').parent('div').parent('div');
         bg_color.push(head_parent.css("background-color"));
         head_parent.remove(); //Remove field html
@@ -191,22 +205,26 @@ $(document).ready(function(){
     function get_registration_form_data(){
         var registration_fee = document.getElementById('reg_fee').value;
         var tuition_fee = document.getElementById('tuition_fee').value;
+        var total_fee = document.getElementById('total_cost').value;
         var student_elements = get_students();
         var student_list = []
         for(i=0; i<student_elements.length; i++){
             var student_ele = student_elements[i];
             var student_name = student_ele.querySelector("#student_name").value;
             var birth_date = student_ele.querySelector("#student_birth_date").value;
+            var medical = student_ele.querySelector("#medical_id").value;
             var class_id = student_ele.querySelector(".class_selection").value;
 
             var student_info = { 'student_name': student_name,
                                  'birth_date': birth_date,
-                                 'class_id': class_id };
+                                 'class_id': class_id,
+                                 'medical': medical };
 
             student_list.push(student_info);
         }
         var reg_data = { 'reg_fee': registration_fee, 
                          'tuition_fee': tuition_fee,
+                         'total_fee': total_fee,
                          'students': JSON.stringify(student_list) };
 
         return reg_data;
@@ -234,7 +252,7 @@ $(document).ready(function(){
           } else {
             // Send the token to your server.
             stripeTokenHandler(result.token);
-            result = confirm("This will charge " + total + " to your card. Press OK to complete registration.");
+            result = confirm("This will charge $" + total + " to your card. Press OK to complete registration.");
             if (result) {
                 $('#registrationForm').trigger('submit', [false]);
             }

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from cloghandler import ConcurrentRotatingFileHandler
+from ConfigParser import RawConfigParser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -164,10 +165,14 @@ USE_TZ = True
 STATIC_ROOT='/home/andrew/projects/staging/static/'
 STATIC_URL = '/static/'
 
-STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "pk_live_GJgiXAg99RhlmuCXCEfzDueT")
-STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "sk_live_4HXDIbXRsBOjHYyzXkaQtL0o")
-STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_OEiMPBtf9FhQ7ZM6rsjjFwKa")
-STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_8bVQFQ6W4otVVRzTlGXmmTbZ")
+config = RawConfigParser()
+
+config.read('/etc/django_config/settings.ini')
+
+STRIPE_LIVE_PUBLIC_KEY = config.get('section', 'STRIPE_LIVE_PUBLIC_KEY')
+STRIPE_LIVE_SECRET_KEY = config.get('section', 'STRIPE_LIVE_SECRET_KEY')
+STRIPE_TEST_PUBLIC_KEY = config.get('section', 'STRIPE_TEST_PUBLIC_KEY')
+STRIPE_TEST_SECRET_KEY = config.get('section', 'STRIPE_TEST_SECRET_KEY')
 STRIPE_LIVE_MODE = False  # Change to True in production
 
 SINGLE_REG_FEE = 10

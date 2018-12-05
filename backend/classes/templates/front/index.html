@@ -251,13 +251,13 @@
 
 <!-- Pre-Ballet Modal -->
 <div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" style="overflow--y: initial !important;" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"><center>Petit Ballet Academy Registration</center></h5> 
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body" style="height:75%; overflow-y:auto;">
         <form id="registrationForm" method="POST" action="/register">{% csrf_token %}
           <div class="form-row">
             <div class="form-group col-md-12">

@@ -112,10 +112,12 @@ def verify_reg_data(request):
     students = request.data.get('students', None)
     registration_fee = request.data.get('reg_fee', None)
     tuition_fee = request.data.get('tuition_fee', None)
+    total_fee = request.data.get('total_fee', None)
 
     #Do we have all the required parent variables?
-    if not (students and registration_fee and tuition_fee):
-        logger.error( "One of the required POST variables was not provided. students=%s, reg_fee=%s, tuition_fee=%s." % ( str(students), str(registration_fee), str(tuition_fee) ) )
+    if not (students and registration_fee and tuition_fee and total_fee):
+        logger.error( "One of the required POST variables was not provided. students=%s, reg_fee=%s, tuition_fee=%s, total_fee=%s." % \
+                                                                          ( str(students), str(registration_fee), str(tuition_fee), str(total_fee) ) )
         return Response(False)
     else:
         students = json.loads(students)
@@ -153,6 +155,12 @@ def verify_reg_data(request):
     #Is the tuition total correct?
     if tuition_total != int(tuition_fee):
         logger.error( "Tuition total was not as expected. Expected:%i, Actual=%i" % (tuition_total, int(tuition_fee)) )
+        return Response(False)
+
+    #Is the total correct?
+    total_check = tuition_total + int(registration_fee)
+    if total_check != int(total_fee):
+        logger.error( "The total fee was not as expected. Expected:%i, Actual=%i" % (total_check, int(total_fee)) )
         return Response(False)
 
     return Response(True)

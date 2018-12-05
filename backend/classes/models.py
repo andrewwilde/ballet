@@ -48,49 +48,74 @@ class Student(models.Model):
     STATUS_FIELDS = (
         ('Unregistered', 'Unregistered'),
         ('Pre-Registered', 'Pre-Registered'),
-        ('Registered', 'Registered')
+        ('Registered', 'Registered'),
+        ('Unpaid', 'Unpaid')
     )
 
     id = models.CharField(max_length=100, default=uuid.uuid4, primary_key=True)
+    name = models.CharField(max_length=50, null=True)
     first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30, null=True)
     age = models.IntegerField(null=True)
     phone_number = models.CharField(max_length=20, null=True)
     email = models.EmailField(null=True)
     status = models.CharField(max_length=20, choices=STATUS_FIELDS, default='Unregistered')
     parent = models.ForeignKey('Parent', null=True)
     class_type = models.CharField(max_length=20)
+    birth_date = models.CharField(max_length=50, null=True)
+    medical = models.TextField(null=True)
 
     def __repr__(self):
-        return self.first_name + " " + self.last_name
+        if self.first_name and self.last_name:
+            return self.first_name + " " + self.last_name
+        elif self.name:
+            return self.name
+        else:
+            return "Unknown"
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        if self.first_name and self.last_name:
+            return self.first_name + " " + self.last_name
+        elif self.name:
+            return self.name
+        else:
+            return "Unknown"
 
 
 class Parent(models.Model):
     id = models.CharField(max_length=100, default=uuid.uuid4, primary_key=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    phone_number = models.CharField(max_length=20)
-    email = models.EmailField()
+    name = models.CharField(max_length=75, null=True)
+    first_name = models.CharField(max_length=30, null=True)
+    last_name = models.CharField(max_length=30, null=True)
+    phone_number = models.CharField(max_length=20, null=True)
+    secondary_number = models.CharField(max_length=20, null=True)
+    email = models.EmailField(null=True)
 
     def __repr__(self):
-        return self.first_name + " " + self.last_name
+        if self.first_name and self.last_name:
+            return self.first_name + " " + self.last_name
+        elif self.name:
+            return self.name
+        else:
+            return "Unknown"
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
-
+        if self.first_name and self.last_name:
+            return self.first_name + " " + self.last_name
+        elif self.name:
+            return self.name
+        else:
+            return "Unknown"
 
 class Enrollment(models.Model):
     student = models.ForeignKey('Student')
     dance_class = models.ForeignKey('DanceClass')
 
     def __repr__(self):
-        return self.student.first_name + " " + self.student.last_name + " is taking " + self.dance_class.title
+        return str(self.student.name)
 
     def __str__(self):
-        return self.student.first_name + " " + self.student.last_name + " is taking " + self.dance_class.title
+        return str(self.student.name)
     
 
 class Assignment(models.Model):
