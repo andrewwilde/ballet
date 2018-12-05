@@ -16,7 +16,7 @@ from rest_framework.reverse import reverse
 from classes.models import DanceClass, Student, Parent, Enrollment
 logger = logging.getLogger('ballet')
 
-stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
+stripe.api_key = settings.STRIPE_LIVE_SECRET_KEY
 
 @api_view(['POST'])
 def charge(request, *args, **kwargs):
