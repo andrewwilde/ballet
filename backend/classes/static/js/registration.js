@@ -55,7 +55,7 @@ $(document).ready(function(){
                           '  </div>' + 
                           '  <div class="form-row">' +
                           '    <div class="form-group col-md-6">' +
-                          '      <label for="parent_first">Student\'s Name</label>' +
+                          '      <label for="parent_first">Student\'s Full Name</label>' +
                           '      <input type="text" class="form-control" id="student_name" name="student_name_' + student_id + '"required>' +
                           '    </div>' +
                           '    <div class="form-group col-md-6">' +
