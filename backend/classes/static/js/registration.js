@@ -38,35 +38,36 @@ $(document).ready(function(){
     var maxField = 4; //Input fields increment limitation
     var addButton = $('#add_button'); //Add button selector
     var wrapper = $('#student_wrapper'); //Input field wrapper
-    var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button"><img src="remove-icon.png"/></a></div>'; //New input field html 
     var bg_color = ['rgba(230, 181, 212, .7)', 'rgba(198, 135, 176, .8)', 'rgba(244, 243, 228, .5)', 'rgba(240, 222, 236, .5)'];
     var tuition_total = 0;
 
-    $(addButton).click(function(){ 
+    $(document).on('click', '#add_button', function(){ 
         //Check maximum number of input fields
         student_id++;
         if(student_count < maxField){
-            var new_student = '<div class="new_student" style="padding: 5px; margin: 5px; border-radius: 25px; float:left; overflow: hidden; background-color:' + bg_color.pop() + ';">' + 
+            var new_student = '<div class="new_student" style="position:relative; z-index:10000; padding: 5px; margin: 5px; border-radius: 25px; float:left; background-color:' + bg_color.pop() + ';">' + 
                           '  <div class="form-row">' +
                           '     <div class="col-md-12">' +
-                          '        <div class="col-md-6"><b>Student\'s Information</b></div>' +
-                          '        <div class="col-md-6"><button style="float:right; color:#c687b0" class="remove_button"><span class="fas fa-trash-alt" class="remove_button"></span></button></div>' +
+                          '        <div class="col-md-12">' +
+                          '          <b>Student\'s Information</b>' +
+                          '          <span style="margin-top:5px; float: right; cursor: pointer;" class="fas fa-lg fa-trash-alt remove_button"></span>' + 
+                          '        </div>' +
                           '     </div>' +
                           '  </div>' + 
                           '  <div class="form-row">' +
                           '    <div class="form-group col-md-6">' +
                           '      <label for="parent_first">Student\'s Full Name</label>' +
-                          '      <input type="text" class="form-control" id="student_name" name="student_name_' + student_id + '"required>' +
+                          '      <input type="text" class="form-control student_name" name="student_name_' + student_id + '"required>' +
                           '    </div>' +
                           '    <div class="form-group col-md-6">' +
                           '      <label for="parent_first">Student\'s Date of Birth</label>' +
-                          '      <input type="text" class="form-control" id="student_birth_date"  name="student_birth_date_' + student_id + '" required>' +
+                          '      <input type="text" class="form-control student_birth_date"  name="student_birth_date_' + student_id + '" required>' +
                           '    </div>' +
                           '   </div>' +
                           '  <div class="form-row">' +
                           '    <div class="form-group col-md-12">' +
                           '      <label for="class_type">Select a Class</label>' +
-                          '      <select class="form-control class_selection" id="class_id" name="student_class_id_' + student_id + '">' +
+                          '      <select class="form-control class_selection class_id" name="student_class_id_' + student_id + '">' +
                           '        <option value="e4dd951e-0699-4dc1-92fc-de96ec37eb88">Pre-Ballet (ages 3-5): Mondays @ 10 - 10:45 AM ($30/month)</option>' +
                           '        <option value="24da8ed9-2866-46b9-a574-e6002fcb920a">Pre-Ballet (ages 3-5): Fridays @ 11:15 AM - 12 PM ($30/month)</option>' +
                           '        <option value="d3ddf124-d95b-4208-a4e9-627e14fb7c0a">Beginning Ballet (ages 6-10): Fridays @ 3:45 - 4:45 PM ($35/month)</option>' +
@@ -77,7 +78,7 @@ $(document).ready(function(){
                           '  <div class="form-row">' +
                           '    <div class="form-group col-md-12">' +
                           '      <label for=medical_id">Medical Concerns/Allergies</label>' +
-                          '      <input type="text" class="form-control" id="medical_id" name="student_medical_id_' + student_id + '">' +
+                          '      <input type="text" class="form-control medical_id" name="student_medical_id_' + student_id + '">' +
                           '    </div>' +
                           '  </div>' +
                           '</div>';
@@ -95,7 +96,7 @@ $(document).ready(function(){
     $(addButton).trigger("click");
  
     //Once remove button is clicked
-    $(wrapper).on('click', '.remove_button', function(e){
+    $(wrapper).on('click', 'span.remove_button', function(e){
         e.preventDefault();
         if (student_count == 1){
             alert("Must have at least one student.");
@@ -134,7 +135,7 @@ $(document).ready(function(){
     }
 
     function get_tuition_cost(uuid_str){
-        url = "https://localhost/tuition_total?class_selections=" + uuid_str
+        url = "https://petitballetacademy.com/tuition_total?class_selections=" + uuid_str
         $.ajax({
           type: "GET",
           url: url,
@@ -179,7 +180,7 @@ $(document).ready(function(){
     }
 
     function is_verified(registration_data){
-        url = "https://localhost/verify_reg_data"
+        url = "https://petitballetacademy.com/verify_reg_data"
         registration_data['csrfmiddlewaretoken'] = getCookie('csrftoken');
         $.ajax({
           type: "POST",
@@ -210,9 +211,9 @@ $(document).ready(function(){
         var student_list = []
         for(i=0; i<student_elements.length; i++){
             var student_ele = student_elements[i];
-            var student_name = student_ele.querySelector("#student_name").value;
-            var birth_date = student_ele.querySelector("#student_birth_date").value;
-            var medical = student_ele.querySelector("#medical_id").value;
+            var student_name = student_ele.querySelector(".student_name").value;
+            var birth_date = student_ele.querySelector(".student_birth_date").value;
+            var medical = student_ele.querySelector(".medical_id").value;
             var class_id = student_ele.querySelector(".class_selection").value;
 
             var student_info = { 'student_name': student_name,
@@ -230,8 +231,8 @@ $(document).ready(function(){
         return reg_data;
     }
 
-    $('#registrationForm').on('submit', function(e, override=true){
-        if (override) {
+    $('#registrationForm').on('submit', function(e, override){
+        if (override === undefined){
             e.preventDefault();
             if (student_count == 0){
                 alert("Please add at least one student.");
@@ -254,7 +255,7 @@ $(document).ready(function(){
             stripeTokenHandler(result.token);
             result = confirm("This will charge $" + total + " to your card. Press OK to complete registration.");
             if (result) {
-                $('#registrationForm').trigger('submit', [false]);
+                $('#registrationForm').trigger('submit', [true]);
             }
           }       
     });

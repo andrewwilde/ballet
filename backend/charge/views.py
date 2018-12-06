@@ -132,21 +132,25 @@ def register(request, *args, **kwargs):
         assignment = Enrollment.objects.create(student=new_student, dance_class=DanceClass.objects.get(id=student.get("class_id")))
         created_students.append(new_student)
 
-    #Create payment 
-    logger.info(settings.STRIPE_TEST_SECRET_KEY) 
-    customer = stripe.Charge.create(
-                   amount=checked_fees*100,
-                   currency="USD",
-                   description=email,
-                   card=stripe_token
-               )
-    student_status = "Registered" if customer else "Unpaid"
+    #Create payment
+    try: 
+        customer = stripe.Charge.create(
+                       amount=checked_fees*100,
+                       currency="USD",
+                       description=email,
+                       card=stripe_token
+                   )
+    except Exception as e:
+        logger.info("Problem with credit card transaction. e=%s" % str(e))
+        student_status = "Unpaid"
+        return render(request, 'register/failed.html') 
+    else:
+        student_status = "Registered"
+        return render(request, 'register/confirmed.html')
+    finally: 
+        for student in created_students:
+            student.status=student_status
+            student.save()
 
-    for student in created_students:
-        student.status=student_status
-        student.save()
 
-    logger.info("Charged and created customer=%s" % str(customer))
-
-    return render(request, 'register/confirmed.html')
 

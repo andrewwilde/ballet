@@ -22,13 +22,11 @@
 <!-- Favicons
     ================================================== -->
 <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="/static/img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="/static/img/apple-touch-icon-114x114.png">
 
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
 
 <!-- Stylesheet
     ================================================== -->
@@ -61,15 +59,16 @@
     </div>-->
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse overlay" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-center" style="border-radius: 25px; background-color: rgba(0, 0, 0, 0.5);" >
-        <li><a href="#about" class="page-scroll" style="color:#f0deec">Mission</a></li>
-        <li><a href="#restaurant-menu" class="page-scroll" style="color:#f0deec">Classes</a></li>
-        <li><a href="#team" class="page-scroll" style="color:#f0deec">Staff</a></li>
-        <li><a href="#footer" class="page-scroll" style="color:#f0deec">Contact</a></li>
-      </ul>
-    </div>
+      <div class="collapse navbar-collapse overlay" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-center" style="border-radius: 25px; background-color: rgba(0, 0, 0, 0.5);" >
+          <li><a href="#about" class="page-scroll" style="color:#f0deec">Mission</a></li>
+          <li><a href="#restaurant-menu" class="page-scroll" style="color:#f0deec">Classes</a></li>
+          <li><a href="#team" class="page-scroll" style="color:#f0deec">Staff</a></li>
+          <li><a href="#footer" class="page-scroll" style="color:#f0deec">Contact</a></li>
+        </ul>
+      </div>
     <!-- /.navbar-collapse -->
+    </div>
   </div>
 </nav>
 <!-- Header -->
@@ -269,7 +268,7 @@
         <form id="registrationForm" method="POST" action="/register">{% csrf_token %}
           <div class="form-row">
             <div class="form-group col-md-12">
-              <button type="button" class="btn btn-default" id="add_button">Add Student</button>
+              <button type="button" class="btn btn-default" style="cursor: pointer" onclick="void(0)" id="add_button">Add Student</button>
             </div>
           </div>
           <div id="student_wrapper"></div> 
@@ -297,7 +296,7 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label for=parent_email">Primary Email Address</label>
+              <label for="reg_email">Primary Email Address</label>
               <input type="email" class="form-control" id="email_id" name="reg_email" required>
             </div>
           </div>
@@ -343,11 +342,10 @@
             </div>
           </div>
 
-        </div>
-        <div class="modal-footer" style="border-top: 0px;">
-          <button type="submit" class="btn btn-primary">Register</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+          <div class="modal-footer" style="border-top: 0px;">
+            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="cursor: pointer;">Close</button>
+          </div>
       </form>
     </div>
   </div>
