@@ -15,7 +15,7 @@ class DanceClass(models.Model):
                       ('Sat', 'Saturday') )
 
     id = models.CharField(max_length=100, default=uuid.uuid4, primary_key=True)
-    title = models.CharField(max_length=100, default="")
+    title = models.CharField(max_length=100, default="", null=True, blank=True)
     max_students = models.IntegerField(default=0)
     recital = models.TextField(default="")
     start_day = models.DateField(null=True)
@@ -53,17 +53,17 @@ class Student(models.Model):
     )
 
     id = models.CharField(max_length=100, default=uuid.uuid4, primary_key=True)
-    name = models.CharField(max_length=50, null=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30, null=True)
-    age = models.IntegerField(null=True)
-    phone_number = models.CharField(max_length=20, null=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+    first_name = models.CharField(max_length=30, null=True, blank=True)
+    last_name = models.CharField(max_length=30, null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_FIELDS, default='Unregistered')
     parent = models.ForeignKey('Parent', null=True, blank=True)
-    class_type = models.CharField(max_length=20)
-    birth_date = models.CharField(max_length=50, null=True)
-    medical = models.TextField(null=True)
+    class_type = models.CharField(max_length=20, blank=True)
+    birth_date = models.CharField(max_length=50, null=True, blank=True)
+    medical = models.TextField(null=True, blank=True)
 
     def __repr__(self):
         if self.first_name and self.last_name:
@@ -84,12 +84,13 @@ class Student(models.Model):
 
 class Parent(models.Model):
     id = models.CharField(max_length=100, default=uuid.uuid4, primary_key=True)
-    name = models.CharField(max_length=75, null=True)
-    first_name = models.CharField(max_length=30, null=True)
-    last_name = models.CharField(max_length=30, null=True)
-    phone_number = models.CharField(max_length=20, null=True)
-    secondary_number = models.CharField(max_length=20, null=True)
-    email = models.EmailField(null=True)
+    name = models.CharField(max_length=75, null=True, blank=True)
+    first_name = models.CharField(max_length=30, null=True, blank=True)
+    last_name = models.CharField(max_length=30, null=True, blank=True)
+    address = models.CharField(max_length=250, null=True, blank=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    secondary_number = models.CharField(max_length=20, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
 
     def __repr__(self):
         if self.first_name and self.last_name:

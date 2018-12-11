@@ -77,7 +77,7 @@ $(document).ready(function(){
                           '  </div>' +
                           '  <div class="form-row">' +
                           '    <div class="form-group col-md-12">' +
-                          '      <label for=medical_id">Medical Concerns/Allergies</label>' +
+                          '      <label for=medical_id">Medical Concerns/Allergies (Optional)</label>' +
                           '      <input type="text" class="form-control medical_id" name="student_medical_id_' + student_id + '">' +
                           '    </div>' +
                           '  </div>' +
