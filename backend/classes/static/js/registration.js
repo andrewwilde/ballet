@@ -68,7 +68,6 @@ $(document).ready(function(){
                           '    <div class="form-group col-md-12">' +
                           '      <label for="class_type">Select a Class</label>' +
                           '      <select class="form-control class_selection class_id" name="student_class_id_' + student_id + '">' +
-                          '        <option value="e4dd951e-0699-4dc1-92fc-de96ec37eb88">Pre-Ballet (ages 3-5): Mondays @ 10 - 10:45 AM ($30/month)</option>' +
                           '        <option value="24da8ed9-2866-46b9-a574-e6002fcb920a">Pre-Ballet (ages 3-5): Fridays @ 11:15 AM - 12 PM ($30/month)</option>' +
                           '        <option value="d3ddf124-d95b-4208-a4e9-627e14fb7c0a">Beginning Ballet (ages 6-10): Fridays @ 3:45 - 4:45 PM ($35/month)</option>' +
                           '        <option value="66825a33-86a9-425a-933c-951d24df0159">Adult Ballet (ages 18+): Wednesdays @ 8:15 - 9:30 PM ($40/month)</option>' +
