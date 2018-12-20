@@ -114,10 +114,10 @@ class Enrollment(models.Model):
     dance_class = models.ForeignKey('DanceClass')
 
     def __repr__(self):
-        return str(self.student.name)
+        return str(self.student.name) + " : " + self.dance_class.title + " @ " + str(self.dance_class.start_time)
 
     def __str__(self):
-        return str(self.student.name)
+        return str(self.student.name) + " : " + self.dance_class.title + " @ " + str(self.dance_class.start_time)
     
 
 class Assignment(models.Model):
