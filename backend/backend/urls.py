@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^payment', registration.payment, name='payment'),
     url(r'^tuition_total', registration.tuition_cost, name='tuition'),
     url(r'^verify_reg_data', registration.verify_reg_data, name='verify'),
+    url(r'^classes', registration.classes, name='classes'),
     url(r'^charge', charge.charge, name='charge'),
     url(r'^register', charge.register, name='register'),
 ]

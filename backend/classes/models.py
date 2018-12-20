@@ -20,6 +20,7 @@ class DanceClass(models.Model):
     recital = models.TextField(default="")
     start_day = models.DateField(null=True)
     end_day = models.DateField(null=True)
+    age_range = models.CharField(max_length=10, null=True, blank=True)
     day_of_week = models.CharField(max_length=3, choices=DAYS_OF_WEEK, null=True) 
     start_time = models.TimeField(null=True)
     end_time = models.TimeField(null=True)

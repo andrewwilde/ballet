@@ -10,7 +10,7 @@ from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Student, Parent, Rsvp, DanceClass
+from .models import Student, Parent, Rsvp, DanceClass, Enrollment
 
 logger = logging.getLogger('ballet')
 
@@ -105,7 +105,26 @@ def tuition_cost(request):
             return Response("There was a problem getting the tuition total.", status=400)
 
     return Response(total)
-       
+    
+@api_view(['GET'])
+def classes(request):
+    dance_classes = []
+    for dance_class in DanceClass.objects.all():
+        count = Enrollment.objects.filter(dance_class__id=dance_class.id).count()
+        has_room = True if count < dance_class.max_students else False
+        dance_classes.append( {'id': dance_class.id, 
+                               'title': dance_class.title,
+                               'day_of_week': dance_class.day_of_week,
+                               'start_time': dance_class.start_time,
+                               'end_time': dance_class.end_time,
+                               'start_day': dance_class.start_day,
+                               'range': dance_class.age_range,
+                               'has_room': has_room} )
+
+    
+
+    return Response(dance_classes)
+   
 @api_view(['POST'])
 def verify_reg_data(request):
     logger.info("Verifying the following request: %s" % str(request.data))

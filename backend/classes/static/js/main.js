@@ -84,7 +84,7 @@ main();
 
 
 function preRegister(class_name, el) {
-    const url = "http://localhost:8000/register/preregister"
+    const url = "/register/preregister"
 
     student_first = "";
     student_last = "";

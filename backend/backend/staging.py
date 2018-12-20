@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6me^+l!v2sx6m9*4j*cn^mm^6$#p&64-0js9!=mlog3uyunts5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -126,7 +126,7 @@ LOGGING = {
             'class': 'logging.handlers.ConcurrentRotatingFileHandler',
             'maxBytes': 1024*1024*10,
             'backupCount': 5,
-            'filename': os.path.abspath("/home/andrew/projects/ballet/logs/ballet.log"),
+            'filename': os.path.abspath("/home/andrew/projects/staging/logs/ballet.log"),
             'formatter': 'verbose'
         },
         'console_logger': {
@@ -162,7 +162,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_ROOT='/home/andrew/projects/ballet/static/'
+STATIC_ROOT='/home/andrew/projects/staging/static/'
 STATIC_URL = '/static/'
 
 config = RawConfigParser()
@@ -173,7 +173,9 @@ STRIPE_LIVE_PUBLIC_KEY = config.get('section', 'STRIPE_LIVE_PUBLIC_KEY')
 STRIPE_LIVE_SECRET_KEY = config.get('section', 'STRIPE_LIVE_SECRET_KEY')
 STRIPE_TEST_PUBLIC_KEY = config.get('section', 'STRIPE_TEST_PUBLIC_KEY')
 STRIPE_TEST_SECRET_KEY = config.get('section', 'STRIPE_TEST_SECRET_KEY')
-STRIPE_LIVE_MODE = True  # Change to True in production
+STRIPE_LIVE_MODE = False  # Change to True in production
+
+STRIPE_KEY = STRIPE_TEST_SECRET_KEY
 
 SINGLE_REG_FEE = 10
 MULTI_REG_FEE = 15
