@@ -7,12 +7,12 @@ from django.db import models
 
 class DanceClass(models.Model):
 
-    DAYS_OF_WEEK  = ( ('Mon', 'Monday'),
-                      ('Tue', 'Tuesday'),
-                      ('Wed', 'Wednesday'),
-                      ('Thu', 'Thursday'),
-                      ('Fri', 'Friday'),
-                      ('Sat', 'Saturday') )
+    DAYS_OF_WEEK  = ( ('Monday', 'Monday'),
+                      ('Tuesday', 'Tuesday'),
+                      ('Wednesday', 'Wednesday'),
+                      ('Thursday', 'Thursday'),
+                      ('Friday', 'Friday'),
+                      ('Saturday', 'Saturday') )
 
     id = models.CharField(max_length=100, default=uuid.uuid4, primary_key=True)
     title = models.CharField(max_length=100, default="", null=True, blank=True)
@@ -21,7 +21,7 @@ class DanceClass(models.Model):
     start_day = models.DateField(null=True)
     end_day = models.DateField(null=True)
     age_range = models.CharField(max_length=10, null=True, blank=True)
-    day_of_week = models.CharField(max_length=3, choices=DAYS_OF_WEEK, null=True) 
+    day_of_week = models.CharField(max_length=10, choices=DAYS_OF_WEEK, null=True) 
     start_time = models.TimeField(null=True)
     end_time = models.TimeField(null=True)
     cost = models.IntegerField(default=0)

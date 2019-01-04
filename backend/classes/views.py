@@ -114,14 +114,13 @@ def classes(request):
         has_room = True if count < dance_class.max_students else False
         dance_classes.append( {'id': dance_class.id, 
                                'title': dance_class.title,
-                               'day_of_week': dance_class.day_of_week,
-                               'start_time': dance_class.start_time,
-                               'end_time': dance_class.end_time,
+                               'day_of_week': dance_class.get_day_of_week_display(),
+                               'start_time': str(dance_class.start_time).rpartition(':')[0],
+                               'end_time': str(dance_class.end_time).rpartition(':')[0],
                                'start_day': dance_class.start_day,
                                'range': dance_class.age_range,
-                               'has_room': has_room} )
-
-    
+                               'has_room': has_room,
+                               'open_spots': dance_class.max_students - count } )
 
     return Response(dance_classes)
    
@@ -152,6 +151,26 @@ def verify_reg_data(request):
         logger.error( "Registration fee is incorrect (multi). Expected=%s, Actual=%s" % (settings.MULTI_REG_FEE, int(registration_fee)) )     
         return Response(False)
 
+    #Is there enough room in the classes?
+    reg_classes = {}
+    for student in students:
+        class_id = student.get('class_id', None)
+        if not class_id:
+            logger.error("Class ID not included in student data.")
+            return Response(False)
+
+        if class_id not in reg_classes:
+            reg_classes[class_id] = 1
+        else:
+            reg_classes[class_id] = reg_classes[class_id] + 1
+
+    for k,v in reg_classes.items():
+        count = Enrollment.objects.filter(dance_class__id=k).count()
+        dance_class = DanceClass.objects.get(id=k)
+        if dance_class.max_students - count < v:
+            logger.error( "There is not enough room in class %s" % str(dance_class) )
+            return Response(False)
+
     #Is the tuition total correct?
     tuition_total = 0
     for student in students:
@@ -170,6 +189,7 @@ def verify_reg_data(request):
             tuition_total = tuition_total + dance_class.cost
         except Exception as e:
             logger.error( "Unable to get Dance Class from provided class_id. e=%s" % str(e) )
+            return Response(False)
 
     #Is the tuition total correct?
     if tuition_total != int(tuition_fee):

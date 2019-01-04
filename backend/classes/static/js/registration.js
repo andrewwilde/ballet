@@ -51,7 +51,7 @@ $(document).ready(function(){
             next_class = dance_classes[i];
 
             if(next_class['has_room']){
-              class_val = next_class['title'] + ' (ages ' + next_class['range'] + '): ' + next_class['day_of_week'] + ' @ ' + next_class['start_time'] + ' to ' + next_class['end_time'];
+              class_val = next_class['title'] + ' (ages ' + next_class['range'] + '): ' + next_class['day_of_week'] + ' @ ' + next_class['start_time'] + ' to ' + next_class['end_time'] + ' - ' + next_class['open_spots'] + ' spot(s) left';
               dance_options.push('<option value="' + next_class['id'] + '">' + class_val + '</option>');
             }
         }
@@ -212,7 +212,7 @@ $(document).ready(function(){
                 submit_payment(registration_data);
             }
             else {
-                alert("Problem verifying payment information. Please call 385-404-8687 to help process payment.");
+                alert("Please check that there is enough room in the class. If you continue to have problems, please call 385-404-8687.");
             }
           }
         });
