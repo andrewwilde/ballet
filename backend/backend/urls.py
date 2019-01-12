@@ -13,14 +13,31 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
 from django.conf.urls import url, include
 from django.contrib import admin
 from classes import views as registration
 from charge import views as charge
 from django.views.decorators.csrf import csrf_exempt
+from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import set_language
+from mezzanine.conf import settings
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+admin.autodiscover()
+
+urlpatterns = i18n_patterns(
+    # Change the admin prefix here to use an alternate URL for the
+    # admin interface, which would be marginally more secure.
+    url(r'^admin/', include(admin.site.urls)),
+)
+
+if settings.USE_MODELTRANSLATION:
+    urlpatterns += [
+        url('^i18n/$', set_language, name='set_language'),
+]
+
+urlpatterns += [
+    #url(r'^admin/', admin.site.urls),
     url(r'register/preregister', csrf_exempt(registration.pre_register)),
     url(r'rsvp', csrf_exempt(registration.rsvp)),
     url(r'^$', registration.home, name='home'),
@@ -30,4 +47,9 @@ urlpatterns = [
     url(r'^classes', registration.classes, name='classes'),
     url(r'^charge', charge.charge, name='charge'),
     url(r'^register', charge.register, name='register'),
+
+    url(r"^", include("mezzanine.urls")),
 ]
+
+handler404 = "mezzanine.core.views.page_not_found"
+handler500 = "mezzanine.core.views.server_error"
