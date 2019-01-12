@@ -436,6 +436,117 @@ ol.type li a:hover {
 .hover-bg:hover .hover-text {
 	opacity: 1;
 }
+
+/* Mission Section */
+#mission {
+        padding: 0 0 60px 0;
+        background: #f4f3e4;
+}
+#mission .section-title {
+        background: #444 url(../img/shutterstock_272347412.jpg ) center center no-repeat fixed;
+        background-size: cover;
+}
+#mission .section-title h2 {
+        color: #fff;
+}
+#mission img {
+        width: 300px;
+}
+#mission h3 {
+        padding: 10px 0;
+        text-transform: uppercase;
+}
+#mission .menu-section hr {
+        margin: 0 auto;
+}
+#mission .menu-section {
+        margin: 0 20px 80px;
+}
+#mission .menu-section-title {
+        font-size: 26px;
+        display: block;
+        font-weight: 500;
+        color: #444;
+        margin: 20px 0;
+        text-align: center;
+}
+#mission .menu-item {
+        margin: 35px 0;
+        font-size: 18px;
+}
+#mission .menu-item-name {
+        font-weight: 600;
+        font-size: 17px;
+        color: #555;
+        border-bottom: 2px dotted rgb(213, 213, 213);
+}
+#mission .menu-item-description {
+        font-style: italic;
+        font-size: 15px;
+}
+#mission .menu-item-price {
+        float: right;
+        font-weight: 600;
+        color: #555;
+        margin-top: -26px;
+}
+
+/* Events Section */
+#events {
+        padding: 0 0 60px 0;
+        background: #f4f3e4;
+}
+#events .section-title {
+        background: #444 url(../img/shutterstock_473602171.jpg) center center no-repeat fixed;
+        background-size: cover;
+}
+#events .section-title h2 {
+        color: #fff;
+}
+#events img {
+        width: 300px;
+}
+#events h3 {
+        padding: 10px 0;
+        text-transform: uppercase;
+}
+#events .menu-section hr {
+        margin: 0 auto;
+}
+#events .menu-section {
+        margin: 0 20px 80px;
+}
+#events .menu-section-title {
+        font-size: 26px;
+        display: block;
+        font-weight: 500;
+        color: #444;
+        margin: 20px 0;
+        text-align: center;
+}
+#events .menu-item {
+        margin: 35px 0;
+        font-size: 18px;
+}
+#events .menu-item-name {
+        font-weight: 600;
+        font-size: 17px;
+        color: #555;
+        border-bottom: 2px dotted rgb(213, 213, 213);
+}
+#events .menu-item-description {
+        font-style: italic;
+        font-size: 15px;
+}
+#events .menu-item-price {
+        float: right;
+        font-weight: 600;
+        color: #555;
+        margin-top: -26px;
+}
+
+
+
 /* Team Section */
 #team {
 	padding: 0 0 60px 0;
