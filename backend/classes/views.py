@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
 from django.db import IntegrityError
+from django.core.exceptions import ValidationError
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -138,10 +139,12 @@ def email_signup(request):
 
     if email:
         try:
-            Email.objects.create(name=email)
+            email_obj = Email(name=email)
+            email_obj.full_clean()
+            email_obj.save()
             messages.add_message(request, messages.INFO, 'Your email has been added!')
-        except IntegrityError:
-            messages.add_message(request, messages.INFO, 'Email previously added.')
+        except ValidationError:
+            messages.add_message(request, messages.INFO, 'Email was previously added or was invalid.')
             logger.error("Integrity Error saving the following email: %s" % email)
     else:
         messages.add_message(request, messages.INFO, 'Error processing email request.')
