@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-import base
+from base import *
+import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
