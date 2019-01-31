@@ -142,3 +142,12 @@ class Rsvp(models.Model):
 
     def __str__(self):
         return "%s %s (%i) - %s" % (self.first_name, self.last_name, self.num_children, self.email)
+
+class Email(models.Model):
+    name = models.EmailField(unique=True)
+
+    def __repr__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name

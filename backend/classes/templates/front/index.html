@@ -81,6 +81,7 @@
         <div class="row">
           <div class="intro-text">
             <a data-toggle="modal" data-target="#registration" class="btn btn-custom btn-lg page-scroll">Register Today!</a><br/>
+            <a data-toggle="modal" data-target="#emailregistration" class="btn btn-custom btn-log page-scroll">Sign up for Emails</a></br>
           </div>
         </div>
       </div>
@@ -95,7 +96,7 @@
     <div class="overlay">
       <h2>Petit Ballet Academy Mission</h2>
       <hr>
-      <p>"To dance is to be out of yourself. Larger, more beautiful, more powerful... This is power, its is glory on earth and it is yours for the taking."</p>
+      <p>"To dance is to be out of yourself. Larger, more beautiful, more powerful... This is power, it is glory on earth and it is yours for the taking."</p>
       <p>Agnes De Mille</p>
     </div>
   </div>
@@ -292,19 +293,19 @@
   </div>
 </div>
 
-<!-- Pre-Ballet Modal -->
-<div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="overflow--y: initial !important;" role="document">
+<!-- pre-ballet modal -->
+<div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="examplemodallabel" aria-hidden="true">
+  <div class="modal-dialog" style="overflow-y: initial !important;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">
-          <span style="margin-left: 15px">Class Registration</span>
+        <h4 class="modal-title" id="examplemodallabel">
+          <span style="margin-left: 15px">class registration</span>
           <a href="https://stripe.com" target="_blank"><img style="float:right;" height=30 src="/static/img/powered_by_stripe.png" /></a>
         </h4>
       </div>
 
       <div class="modal-body" style="height:75%; overflow-y:auto;">
-        <form id="registrationForm" method="POST" action="/register">{% csrf_token %}
+        <form id="registrationform" method="post" action="/register">{% csrf_token %}
           <div class="form-row">
             <div class="form-group col-md-12">
               <button type="button" class="btn btn-default" style="cursor: pointer" onclick="void(0)" id="add_button">Add Student</button>
@@ -385,10 +386,41 @@
             <button type="submit" class="btn btn-primary">Register</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="cursor: pointer;">Close</button>
           </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- email modal -->
+<div class="modal fade" id="emailregistration" tabindex="-1" role="dialog" aria-labelledby="emailmodal" aria-hidden="true">
+  <div class="modal-dialog" style="overflow-y: initial !important;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="emailmodal">
+          <center><span style="margin-left: 15px;">Email Registration</span></center>
+        </h4>
+        <p>If you'd like to receive our newsletter for more information about Petit Ballet Academy, please add your email below and press the confirmation button. We do not spam! Emails will probably be sent out once a month.</p>
+      </div>
+
+      <div class="modal-body" style="height:75%; overflow-y:auto;">
+        <form id="registrationform" method='POST' action="/email_signup">{% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="parent_first">Email Address</label>
+              <input type="email" class="form-control" id="email_reg" name="email_reg" required>
+            </div>
+          </div>
+          <div class="modal-footer" style="border-top: 0px;">
+            <button type="submit" class="btn btn-primary">Get Email Updates!</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="cursor: pointer;">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+ 
 
 <h1 style="visibility:hidden; background-color:#f0deec">Springville Ballet Studio</h1>
 
@@ -403,6 +435,12 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script type="text/javascript" src="/static/js/payment.js"></script>
 <script type="text/javascript" src="/static/js/registration.js"></script>
+
+{% if messages %}
+  {% for message in messages %}
+    <script>alert("{{ message }}");</script>
+  {% endfor %}
+{% endif %}
 
 </body>
 </html>
