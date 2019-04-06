@@ -138,19 +138,21 @@ def email_signup(request):
     email = request.data.get('email_reg', None)
 
     if email:
-        try:
-            email_obj = Email(name=email)
-            email_obj.full_clean()
-            email_obj.save()
-            messages.add_message(request, messages.INFO, 'Your email has been added!')
-        except ValidationError:
-            messages.add_message(request, messages.INFO, 'Email was previously added or was invalid.')
-            logger.error("Integrity Error saving the following email: %s" % email)
+        if Email.objects.filter(name=email):
+            return render(request, 'front/email_confirmed.html')
+        else: 
+            try:
+                email_obj = Email(name=email)
+                email_obj.full_clean()
+                email_obj.save()
+            except ValidationError:
+                logger.error("Integrity Error saving the following email: %s" % email)
+                return render(request, 'front/email_failed.html') 
     else:
-        messages.add_message(request, messages.INFO, 'Error processing email request.')
         logger.error("Newsletter signup didn't have the email field filled out.")
+        return render(request, 'front/email_failed.html')
 
-    return redirect('home')
+    return render(request, 'front/email_confirmed.html')
  
 @api_view(['POST'])
 def verify_reg_data(request):
