@@ -169,10 +169,10 @@ $(document).ready(function(){
 
     function get_registration_fee(){
         if(student_count == 1){
-            return 10;
+            return 15;
         }
         else if (student_count > 1){
-            return 15;
+            return 20;
         }
         else{
             return 0;
