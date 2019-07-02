@@ -45,6 +45,7 @@ urlpatterns += [
     url(r'^tuition_total', registration.tuition_cost, name='tuition'),
     url(r'^verify_reg_data', registration.verify_reg_data, name='verify'),
     url(r'^classes', registration.classes, name='classes'),
+    url(r'^location', registration.location, name='location'),
     url(r'^charge', charge.charge, name='charge'),
     url(r'^register', charge.register, name='register'),
     url(r'^email_signup', registration.email_signup, name='email'),
