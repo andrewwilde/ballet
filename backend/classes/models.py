@@ -25,12 +25,26 @@ class DanceClass(models.Model):
     start_time = models.TimeField(null=True)
     end_time = models.TimeField(null=True)
     cost = models.IntegerField(default=0)
+    location = models.ForeignKey('Location', null=True, blank=True)
+
 
     def __repr__(self):
         return self.title + " on " + str(self.day_of_week) + ' @ ' + str(self.start_time)
 
     def __str__(self):
         return self.title + " on " + str(self.day_of_week) + ' @ ' + str(self.start_time)
+
+class Location(models.Model):
+    title =  models.CharField(max_length=40, null=True, blank=True)
+    city = models.CharField(max_length=30, null=True, blank=True)
+    zipcode = models.CharField(max_length=12, null=True, blank=True)
+    street = models.CharField(max_length=50, null=True, blank=True)
+
+    def __repr__(self):
+        return str(self.title)
+
+    def __str__(self):
+        return str(self.title)
 
 
 class Teacher(models.Model):
@@ -92,6 +106,7 @@ class Parent(models.Model):
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     secondary_number = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
+    referral = models.CharField(max_length=50, null=True, blank=True)
 
     def __repr__(self):
         if self.first_name and self.last_name:
@@ -142,3 +157,12 @@ class Rsvp(models.Model):
 
     def __str__(self):
         return "%s %s (%i) - %s" % (self.first_name, self.last_name, self.num_children, self.email)
+
+class Email(models.Model):
+    name = models.EmailField(unique=True)
+
+    def __repr__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name

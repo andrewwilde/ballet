@@ -51,13 +51,13 @@ def register(request, *args, **kwargs):
     email = request.data.get('reg_email', None)
     payer = request.data.get('payer', None)
     primary_phone = request.data.get('primary_phone', None)
-    mailing_address = request.data.get('mailing_address', None)
     
     tuition_fee = request.data.get('fee_tuition', None)
     register_fee = request.data.get('fee_register', None)
     total_fee = request.data.get('fee_total', None)
 
     secondary_phone = request.data.get('secondary_phone', None)
+    referral = request.data.get('ref_name', None)
 
     #Check stripe token
     stripe_token = request.data.get('stripeToken', None)
@@ -66,8 +66,8 @@ def register(request, *args, **kwargs):
         return Response(status=400)
 
     #Check parent fields
-    if not (email and payer and primary_phone and mailing_address):
-        logger.error('WARNING: Missing parent information. email=%s, payer=%s, primary_phone=%s, mailing_address=%s' % (str(email), str(payer), str(primary_phone), str(mailing_address)))
+    if not (email and payer and primary_phone):
+        logger.error('WARNING: Missing parent information. email=%s, payer=%s, primary_phone=%s' % (str(email), str(payer), str(primary_phone)))
         return Response(status=400)
 
     #Check fee fields
@@ -126,7 +126,7 @@ def register(request, *args, **kwargs):
         return Response(status=400)
 
     #Create Parent
-    parent = Parent.objects.create(name=payer, email=email, phone_number=primary_phone, secondary_number=secondary_phone)
+    parent = Parent.objects.create(name=payer, email=email, phone_number=primary_phone, secondary_number=secondary_phone, referral=referral)
 
     #Create Student
     created_students = []

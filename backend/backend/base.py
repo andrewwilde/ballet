@@ -139,8 +139,8 @@ STRIPE_TEST_PUBLIC_KEY = config.get('section', 'STRIPE_TEST_PUBLIC_KEY')
 STRIPE_TEST_SECRET_KEY = config.get('section', 'STRIPE_TEST_SECRET_KEY')
 STRIPE_LIVE_MODE = True  # Change to True in production
 
-SINGLE_REG_FEE = 10
-MULTI_REG_FEE = 15
+SINGLE_REG_FEE = 15
+MULTI_REG_FEE = 20
 
 
 ######################
@@ -221,6 +221,7 @@ INSTALLED_APPS = (
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "django.contrib.messages",
     "django.contrib.redirects",
     "django.contrib.sessions",
     "django.contrib.sites",

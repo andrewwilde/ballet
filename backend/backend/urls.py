@@ -47,6 +47,7 @@ urlpatterns += [
     url(r'^classes', registration.classes, name='classes'),
     url(r'^charge', charge.charge, name='charge'),
     url(r'^register', charge.register, name='register'),
+    url(r'^email_signup', registration.email_signup, name='email'),
 
     url(r"^", include("mezzanine.urls")),
 ]

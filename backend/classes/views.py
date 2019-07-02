@@ -4,13 +4,21 @@ from __future__ import unicode_literals
 import logging
 import json
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.conf import settings
+from django.db import IntegrityError
+from django.core.exceptions import ValidationError
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Student, Parent, Rsvp, DanceClass, Enrollment
+from .models import ( Student, 
+                      Parent, 
+                      Rsvp, 
+                      DanceClass, 
+                      Enrollment,
+                      Email )
 
 logger = logging.getLogger('ballet')
 
@@ -123,7 +131,29 @@ def classes(request):
                                'open_spots': dance_class.max_students - count } )
 
     return Response(dance_classes)
-   
+  
+@api_view(['POST'])
+def email_signup(request):
+    logger.info("Verifying newsletter signup... data=%s" % str(request.data))
+    email = request.data.get('email_reg', None)
+
+    if email:
+        if Email.objects.filter(name=email):
+            return render(request, 'front/email_confirmed.html')
+        else: 
+            try:
+                email_obj = Email(name=email)
+                email_obj.full_clean()
+                email_obj.save()
+            except ValidationError:
+                logger.error("Integrity Error saving the following email: %s" % email)
+                return render(request, 'front/email_failed.html') 
+    else:
+        logger.error("Newsletter signup didn't have the email field filled out.")
+        return render(request, 'front/email_failed.html')
+
+    return render(request, 'front/email_confirmed.html')
+ 
 @api_view(['POST'])
 def verify_reg_data(request):
     logger.info("Verifying the following request: %s" % str(request.data))

@@ -6,9 +6,9 @@ concurrent-log-handler==0.9.12
 ConcurrentLogHandler==0.9.1
 cryptography==2.3.1
 dj-stripe==1.2.3
-Django==1.11.14
+Django==1.11.21
 django-rest-framework==0.1.0
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 enum34==1.1.6
 gunicorn==19.9.0
 idna==2.7
@@ -21,4 +21,4 @@ pytz==2018.5
 requests==2.20.1
 six==1.11.0
 stripe==2.12.0
-urllib3==1.24.1
+urllib3==1.24.2
