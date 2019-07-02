@@ -126,10 +126,10 @@ $(document).ready(function(){
     function recalculate(){
         var reg_fee = 0;
         if(student_count == 1){
-            reg_fee = 10;
+            reg_fee = 15;
         }
         else if (student_count > 1){
-            reg_fee = 15;
+            reg_fee = 25;
         }
 
         class_selections = get_classes();
