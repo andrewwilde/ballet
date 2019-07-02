@@ -18,7 +18,8 @@ from .models import ( Student,
                       Rsvp, 
                       DanceClass, 
                       Enrollment,
-                      Email )
+                      Email,
+                      Location )
 
 logger = logging.getLogger('ballet')
 
@@ -29,6 +30,17 @@ def home(request):
 @api_view(['GET'])
 def payment(request):
     return render(request, 'front/payment.html')
+
+@api_view(['GET'])
+def location(request):
+    response_dict = {}
+
+    for cls in DanceClass.objects.all():
+        response_dict[cls.id] = { 'city': cls.location.city,
+                                        'zipcode': cls.location.zipcode,
+                                        'street': cls.location.street }
+
+    return Response(response_dict) 
 
 @api_view(['POST'])
 def rsvp(request):

@@ -14,6 +14,7 @@ import os
 
 from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 from cloghandler import ConcurrentRotatingFileHandler
 from ConfigParser import RawConfigParser
@@ -140,7 +141,7 @@ STRIPE_TEST_SECRET_KEY = config.get('section', 'STRIPE_TEST_SECRET_KEY')
 STRIPE_LIVE_MODE = True  # Change to True in production
 
 SINGLE_REG_FEE = 15
-MULTI_REG_FEE = 20
+MULTI_REG_FEE = 25
 
 
 ######################
@@ -291,6 +292,11 @@ OPTIONAL_APPS = (
     PACKAGE_NAME_GRAPPELLI,
 )
 
+#################
+# Max File Size #
+#################
+MAX_UPLOAD_SIZE = 10485760
+FILEBROWSER_MAX_UPLOAD_SIZE = MAX_UPLOAD_SIZE
 
 ####################
 # DYNAMIC SETTINGS #

@@ -41,6 +41,7 @@ $(document).ready(function(){
     var bg_color = ['rgba(230, 181, 212, .7)', 'rgba(198, 135, 176, .8)', 'rgba(244, 243, 228, .5)', 'rgba(240, 222, 236, .5)'];
     var tuition_total = 0;
 
+    var locations = {}
     var dance_classes = [];
 
     get_class_info();
@@ -80,7 +81,7 @@ $(document).ready(function(){
                           '  <div class="form-row">' +
                           '    <div class="form-group col-md-12">' +
                           '      <label for="class_type">Select a Class</label>' +
-                          '      <select class="form-control class_selection class_id" name="student_class_id_' + student_id + '">' +
+                          '      <select class="form-control class_selection class_id" id="selected_class_' + student_id + '" name="student_class_id_' + student_id + '">' +
                           dance_options.join() +
                           '      </select>' +
                           '    </div>' +
@@ -91,11 +92,22 @@ $(document).ready(function(){
                           '      <input type="text" class="form-control medical_id" name="student_medical_id_' + student_id + '">' +
                           '    </div>' +
                           '  </div>' +
+                          '  <div class="form-row">' +
+                          '    <div class="form-group col-md-12">' +
+                          '      <label for=location_id">Studio Location</label>' +
+                          '      <input type="text" class="form-control location_id" name="student_location_id_' + student_id + '" disabled>' +
+                          '    </div>' +
+                          '  </div>' +
+
                           '</div>';
 
             student_count++; //Increment field counter
             $(wrapper).append(new_student); //Add field html
             recalculate();
+
+            if (student_id != 1) {
+              $('#selected_class_' + student_id).change();
+            }
         }
         else{
             alert("The maximum number of students you can register online is four. Please call 385-404-8687 to register.");
@@ -103,7 +115,7 @@ $(document).ready(function(){
     });
 
     //Let's start with at least one student   
- 
+
     //Once remove button is clicked
     $(wrapper).on('click', 'span.remove_button', function(e){
         e.preventDefault();
@@ -119,17 +131,29 @@ $(document).ready(function(){
     });
 
     $(wrapper).on('change', '.class_selection', function(e){
+        set_location(this);
         e.preventDefault();
-        recalculate();
+        recalculate();        
     });
 
+
+    function set_location(ele){
+        class_id = ele.id.split("_")[2];
+        var selected_class = $(ele).children("option:selected").val();
+        cls_location = locations[selected_class];
+        location_str = cls_location['street'] + ', ' + cls_location['city'] + ' ' + cls_location['zipcode'];
+
+        document.getElementsByName('student_location_id_' + class_id)[0].value = location_str;
+
+    }
+ 
     function recalculate(){
         var reg_fee = 0;
         if(student_count == 1){
-            reg_fee = 10;
+            reg_fee = 15;
         }
         else if (student_count > 1){
-            reg_fee = 15;
+            reg_fee = 25;
         }
 
         class_selections = get_classes();
@@ -163,6 +187,19 @@ $(document).ready(function(){
           success: function(data) {
               dance_classes = data;
               $(addButton).trigger("click");
+              get_class_locations();
+          }
+        });
+    }
+
+    function get_class_locations(){
+        url="/location";
+        $.ajax({
+          type: "GET",
+          url: url,
+          success: function(data) {
+              locations = data;
+              $('#selected_class_1').change();
           }
         });
     }
@@ -172,7 +209,7 @@ $(document).ready(function(){
             return 15;
         }
         else if (student_count > 1){
-            return 20;
+            return 25;
         }
         else{
             return 0;
