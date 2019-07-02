@@ -44,7 +44,6 @@ $(document).ready(function(){
     var locations = {}
     var dance_classes = [];
 
-    get_class_locations();
     get_class_info();
 
     $(document).on('click', '#add_button', function(){
@@ -105,7 +104,10 @@ $(document).ready(function(){
             student_count++; //Increment field counter
             $(wrapper).append(new_student); //Add field html
             recalculate();
-            $('#selected_class_1').change();
+
+            if (student_id != 1) {
+              $('#selected_class_' + student_id).change();
+            }
         }
         else{
             alert("The maximum number of students you can register online is four. Please call 385-404-8687 to register.");
@@ -185,6 +187,7 @@ $(document).ready(function(){
           success: function(data) {
               dance_classes = data;
               $(addButton).trigger("click");
+              get_class_locations();
           }
         });
     }
@@ -196,6 +199,7 @@ $(document).ready(function(){
           url: url,
           success: function(data) {
               locations = data;
+              $('#selected_class_1').change();
           }
         });
     }
@@ -205,7 +209,7 @@ $(document).ready(function(){
             return 15;
         }
         else if (student_count > 1){
-            return 20;
+            return 25;
         }
         else{
             return 0;
