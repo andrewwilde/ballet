@@ -39,7 +39,7 @@ if settings.USE_MODELTRANSLATION:
 urlpatterns += [
     #url(r'^admin/', admin.site.urls),
     url(r'register/preregister', csrf_exempt(registration.pre_register)),
-    url(r'rsvp', csrf_exempt(registration.rsvp)),
+    url(r'^free_class', registration.free_class),
     url(r'^$', registration.home, name='home'),
     url(r'^payment', registration.payment, name='payment'),
     url(r'^tuition_total', registration.tuition_cost, name='tuition'),

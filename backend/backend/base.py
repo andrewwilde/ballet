@@ -96,11 +96,20 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
+        },
+        'mail_admins': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'verbose'
         }
     },
     'loggers': {
         'ballet': {
             'handlers': ['logfile', 'console_logger'],
+            'level': 'DEBUG'
+        },
+        'admins': {
+            'handlers': ['mail_admins', 'logfile'],
             'level': 'DEBUG'
         }
     }
@@ -297,6 +306,17 @@ OPTIONAL_APPS = (
 #################
 MAX_UPLOAD_SIZE = 10485760
 FILEBROWSER_MAX_UPLOAD_SIZE = MAX_UPLOAD_SIZE
+
+####################
+# Email SMTP Setup #
+####################
+ADMINS = [ ('Petit Ballet', config.get('section', 'EMAIL_USER')) ]
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config.get('section', 'EMAIL_USER')
+EMAIL_HOST_PASSWORD = config.get('section', 'EMAIL_PASS')
 
 ####################
 # DYNAMIC SETTINGS #

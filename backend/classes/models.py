@@ -158,6 +158,28 @@ class Rsvp(models.Model):
     def __str__(self):
         return "%s %s (%i) - %s" % (self.first_name, self.last_name, self.num_children, self.email)
 
+class FreeClass(models.Model):
+    class_id = models.CharField(max_length=20)
+    spots = models.IntegerField(default=8)
+
+    def __repr__(self):
+        return "%s (%i)" % (self.class_id, self.spots)
+
+    def __str__(self):
+        return "%s (%i)" % (self.class_id, self.spots)
+
+class FreeStudent(models.Model):
+    parent_name = models.CharField(max_length=70)
+    parent_email = models.EmailField()
+    num_children = models.IntegerField()
+    free_class = models.ForeignKey('FreeClass')
+
+    def __repr__(self):
+        return "%s\t%s\t%s\t%s" % (self.parent_name, self.parent_email, self.num_children, self.free_class.class_id)
+
+    def __str__(self):
+        return "%s\t%s\t%s\t%s" % (self.parent_name, self.parent_email, self.num_children, self.free_class.class_id)
+
 class Email(models.Model):
     name = models.EmailField(unique=True)
 

@@ -15,6 +15,7 @@ from rest_framework.reverse import reverse
 
 from classes.models import DanceClass, Student, Parent, Enrollment
 logger = logging.getLogger('ballet')
+admins = logging.getLogger('admins')
 
 if settings.STRIPE_LIVE_MODE:
     stripe.api_key = settings.STRIPE_LIVE_SECRET_KEY
@@ -67,28 +68,28 @@ def register(request, *args, **kwargs):
 
     #Check parent fields
     if not (email and payer and primary_phone):
-        logger.error('WARNING: Missing parent information. email=%s, payer=%s, primary_phone=%s' % (str(email), str(payer), str(primary_phone)))
+        admins.error('WARNING: Missing parent information. email=%s, payer=%s, primary_phone=%s' % (str(email), str(payer), str(primary_phone)))
         return Response(status=400)
 
     #Check fee fields
     if not (tuition_fee and register_fee and total_fee):
-        logger.error('WARNING: Missing fee. tuition=%s, registration=%s, total_fee=%s' & (str(tuition_fee), str(register_fee), str(total_fee)))
+        admins.error('WARNING: Missing fee. tuition=%s, registration=%s, total_fee=%s' & (str(tuition_fee), str(register_fee), str(total_fee)))
         return Response(status=400)
 
     #Check registration fee number
     registration_check = 0
     if len(students.keys()) == 0:
-        logger.error("WARNING: No students registering.")
+        admins.error("WARNING: No students registering.")
         return Response(status=400)
     elif len(students.keys()) == 1:
         if int(register_fee) != settings.SINGLE_REG_FEE:
-            logger.error("WARNING: Registration fee was incorrect. Expected=%s, Actual=%s" % (str(settings.SINGLE_REG_FEE), str(register_fee)))
+            admins.error("WARNING: Registration fee was incorrect. Expected=%s, Actual=%s" % (str(settings.SINGLE_REG_FEE), str(register_fee)))
             return Response(status=400)
         else:
             registration_check = settings.SINGLE_REG_FEE
     elif len(students.keys()) > 1:
         if int(register_fee) != settings.MULTI_REG_FEE:
-            logger.error("WARNING: Registration fee was incorrect. Expected=%s, Actual=%s" % (str(settings.MULTI_REG_FEE), str(register_fee)))
+            admins.error("WARNING: Registration fee was incorrect. Expected=%s, Actual=%s" % (str(settings.MULTI_REG_FEE), str(register_fee)))
             return Response(status=400)
         else:
             registration_check = settings.MULTI_REG_FEE
@@ -103,7 +104,7 @@ def register(request, *args, **kwargs):
         medical = student_dict.get('student_medical_id', "")
 
         if not (class_id and student_name and birth_date):
-            logger.error("WARNING: One of the students was missing required data. class_id=%s, student_name=%s, birth_date=%s" % (str(class_id), str(student_name), str(birth_date)))
+            admins.error("WARNING: One of the students was missing required data. class_id=%s, student_name=%s, birth_date=%s" % (str(class_id), str(student_name), str(birth_date)))
             return Response(status=400)
 
         try:
@@ -111,18 +112,18 @@ def register(request, *args, **kwargs):
             tuition_check = tuition_check + dance_class.cost
             validated_students.append( {"student_name": student_name, "birth_date": birth_date, "class_id": class_id, "medical": medical} )
         except Exception as e:
-           logger.error("WARNING: Class does not exist. class=%s, e=%s" % ( str(class_id), str(e) ))
+           admins.error("WARNING: Class does not exist. class=%s, e=%s" % ( str(class_id), str(e) ))
            return Response(status=400)
 
     if tuition_check != int(tuition_fee):
-        logger.error("WARNING: Tuition fee was not correct. Expected=%i, Actual=%i" % ( tuition_check, int(tuition_fee) ))
+        admins.error("WARNING: Tuition fee was not correct. Expected=%i, Actual=%i" % ( tuition_check, int(tuition_fee) ))
         return Response(status=400)
 
     #Check fee totals
     checked_fees = int(tuition_check) + int(registration_check)
     posted_fees = int(tuition_fee) + int(register_fee)
     if not (checked_fees == posted_fees == int(total_fee)):
-        logger.error("WARNING: Total fee was not correct. Posted fees=%i, Checked fees=%i, Total posted fees=%i" % (posted_fees, checked_fees, int(total_fee)))
+        admins.error("WARNING: Total fee was not correct. Posted fees=%i, Checked fees=%i, Total posted fees=%i" % (posted_fees, checked_fees, int(total_fee)))
         return Response(status=400)
 
     #Create Parent
@@ -144,7 +145,7 @@ def register(request, *args, **kwargs):
                        card=stripe_token
                    )
     except Exception as e:
-        logger.info("Problem with credit card transaction. e=%s" % str(e))
+        admins.info("Problem with credit card transaction. e=%s" % str(e))
         student_status = "Unpaid"
         return render(request, 'register/failed.html') 
     else:
@@ -154,6 +155,6 @@ def register(request, *args, **kwargs):
         for student in created_students:
             student.status=student_status
             student.save()
-
-
+            admins.info("New student has successfully registered: %s" % str(student.name))
+    
 

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import logging
 import json
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.db import IntegrityError
@@ -15,13 +15,15 @@ from rest_framework.decorators import api_view
 
 from .models import ( Student, 
                       Parent, 
-                      Rsvp, 
+                      FreeClass,
+                      FreeStudent, 
                       DanceClass, 
                       Enrollment,
                       Email,
                       Location )
 
 logger = logging.getLogger('ballet')
+admins = logging.getLogger('admins')
 
 @api_view(['GET'])
 def home(request):
@@ -43,21 +45,24 @@ def location(request):
     return Response(response_dict) 
 
 @api_view(['POST'])
-def rsvp(request):
-    logger.info("RSVP triggered. request.data=%s" % str(request.data))
-    data = { "first_name": request.data.get("first_name", None),
-             "last_name": request.data.get("last_name", None),
-             "email": request.data.get("email", None),
-             "num_children": request.data.get("num_children", None) }
+def free_class(request):
+    logger.info("Free class registration triggered. request.data=%s" % str(request.data))
+    data = { "parent_name": request.data.get("free_name", None),
+             "parent_email": request.data.get("free_email", None),
+             "num_children": request.data.get("free_num", None) }
 
     if None in data.values():
         return Response("Not all required fields were filled out.", status=400)
 
-    data['phone'] = request.data.get("phone", "")
+    free_class = get_object_or_404(FreeClass, class_id=request.data.get("free_date", None))
+    data['free_class'] = free_class
 
-    Rsvp.objects.create(**data)
+    FreeStudent.objects.create(**data)
 
-    return Response("RSVP has been successfully created.")
+    admins.info("New free student registration:\n%s\n%s\n%s" % (data.get('parent_name'), data.get('parent_email'), data.get('num_children')))
+
+    return render(request, 'front/free_confirmed.html')
+
 
 @api_view(['POST'])
 def pre_register(request):
@@ -102,7 +107,7 @@ def pre_register(request):
 
         Student.objects.create(**data)
 
-    return Response("Pre-Reigstration Complete")
+    return Response("Pre-Registration Complete")
 
 @api_view(['GET'])
 def tuition_cost(request):
@@ -161,8 +166,10 @@ def email_signup(request):
                 logger.error("Integrity Error saving the following email: %s" % email)
                 return render(request, 'front/email_failed.html') 
     else:
-        logger.error("Newsletter signup didn't have the email field filled out.")
+        admins.error("Newsletter signup didn't have the email field filled out.")
         return render(request, 'front/email_failed.html')
+
+    admins.info('New email signup: %s' % str(email))
 
     return render(request, 'front/email_confirmed.html')
  
