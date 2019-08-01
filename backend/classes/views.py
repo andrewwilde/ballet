@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -63,6 +64,23 @@ def free_class(request):
 
     return render(request, 'front/free_confirmed.html')
 
+
+@api_view(['POST'])
+def send_email(request):
+    logger.info("Sending a new email from the contact form.")
+
+    body = request.data.get('message')
+    email_from = request.data.get('email')
+    name = request.data.get('name')
+
+    send_mail( "Message from User!",
+               body,
+               email_from,
+               [settings.EMAIL_HOST_USER],
+               fail_silently=False)
+
+    return Response("Email sent.")
+               
 
 @api_view(['POST'])
 def pre_register(request):
