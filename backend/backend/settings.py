@@ -45,13 +45,24 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
+        },
+        'mail_admins': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'verbose'
         }
+
     },
     'loggers': {
         'ballet': {
             'handlers': ['logfile', 'console_logger'],
             'level': 'DEBUG'
+        },
+    'admins': {
+            'handlers': ['mail_admins', 'logfile'],
+            'level': 'DEBUG'
         }
+
     }
 }
 
