@@ -14,6 +14,8 @@ from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 
 from classes.models import DanceClass, Student, Parent, Enrollment
+from charge.emails import registration_email
+
 logger = logging.getLogger('ballet')
 admins = logging.getLogger('admins')
 
@@ -150,11 +152,14 @@ def register(request, *args, **kwargs):
         return render(request, 'register/failed.html') 
     else:
         student_status = "Registered"
+        
         return render(request, 'register/confirmed.html')
     finally: 
         for student in created_students:
             student.status=student_status
             student.save()
             admins.info("New student has successfully registered: %s" % str(student.name))
+            if student.status == "Registered":
+                registration_email(Enrollment.objects.get(student=student))
     
 
