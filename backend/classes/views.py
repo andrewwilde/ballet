@@ -69,9 +69,13 @@ def free_class(request):
 def send_email(request):
     logger.info("Sending a new email from the contact form.")
 
-    body = request.data.get('message')
+    
+    message = request.data.get('message')
     email_from = request.data.get('email')
     name = request.data.get('name')
+    body = """Message: %s
+              Email: %s
+              Name: %s""" % (message, email_from, name)
 
     send_mail( "Message from User!",
                body,
